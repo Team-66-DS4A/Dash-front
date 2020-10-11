@@ -2,7 +2,7 @@
 
 ## Dependencies: 
 
-`pip install dash-bootstrap-components`
+> pip install dash-bootstrap-components
 
 
 ## Directory 
