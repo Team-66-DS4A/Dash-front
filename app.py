@@ -14,11 +14,13 @@ app = dash.Dash(
     assets_external_path='./'
 )
 
+
+
+
 from layouts import home, layout2
 
-
 ## Resources 
-PLOTLY_LOGO = app.get_asset_url("bucaramanga.png")
+PLOTLY_LOGO = app.get_asset_url("/image/bucaramanga.png")
 
 ## end resources
 
