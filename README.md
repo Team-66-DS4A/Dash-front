@@ -2,15 +2,15 @@
 
 ## Dependencies: 
 
-> pip install dash-bootstrap-components
+` pip install dash-bootstrap-components`  [About Bootstrap for Dash](https://dash-bootstrap-components.opensource.faculty.ai/docs/components/alert/)
 
 
 ## Directory 
 
 ```
 ./ 
-app.py     
-layouts.py     
-assets/ 
+app.py       Server and Dash app file 
+layouts.py   Here are the layouts of the subpages 
+assets/      Here are the resources, css and images... 
 .../images 
 ```
