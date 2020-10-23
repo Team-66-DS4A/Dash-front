@@ -21,7 +21,7 @@ server = app.server
 #from layouts import home, layout2
 
 ## Resources 
-PLOTLY_LOGO = app.get_asset_url("/assets/images/bucaramanga.png")
+PLOTLY_LOGO = app.get_asset_url("images/bucaramanga.png")
 
 ## end resources
 
@@ -110,9 +110,9 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/home"]:
-        return  html.P("This is the content of page 2. Yay!") # home
+        return html.P("Oh cool, this is the home!") # home
     elif pathname == "/page-2":
-        return html.P("This is the content of page 2. Yay!")
+        
     elif pathname == "/page-3":
         return html.P("Oh cool, this is page 3!")
     # If the user tries to reach a different page, return a 404 message
