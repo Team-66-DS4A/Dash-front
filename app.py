@@ -18,7 +18,7 @@ app = dash.Dash( __name__,
 server = app.server
 
 
-#from layouts import home, layout2
+from layouts import home, aboutus
 
 ## Resources 
 PLOTLY_LOGO = app.get_asset_url("images/bucaramanga.png")
@@ -73,7 +73,7 @@ sidebar = dbc.Navbar( [  html.Div(
                 [
                     dbc.NavLink("Home", href="/home", id="page-1-link"),
                     dbc.NavLink("Page 2", href="/page-2", id="page-2-link"),
-                    dbc.NavLink("Page 3", href="/page-3", id="page-3-link"),
+                    dbc.NavLink("About Us", href="/page-3", id="page-3-link"),
                 ],
                 vertical=True,
                 navbar=True
@@ -110,11 +110,11 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/home"]:
-        return html.P("Oh cool, this is the home!") # home
+        return  home
     elif pathname == "/page-2":
-        
+        return html.P("Oh cool, this is page 2!")
     elif pathname == "/page-3":
-        return html.P("Oh cool, this is page 3!")
+        return aboutus
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
