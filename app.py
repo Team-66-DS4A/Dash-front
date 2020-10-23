@@ -15,9 +15,10 @@ app = dash.Dash(
 )
 
 
+server = app.server
 
 
-#from layouts import  layout2, home
+#from layouts import home, layout2
 
 ## Resources 
 PLOTLY_LOGO = app.get_asset_url("/image/bucaramanga.png")
@@ -109,7 +110,7 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/home"]:
-        return html.P("Oh cool, this is home") # home
+        return  html.P("This is the content of page 2. Yay!") # home
     elif pathname == "/page-2":
         return html.P("This is the content of page 2. Yay!")
     elif pathname == "/page-3":
@@ -136,7 +137,7 @@ def toggle_collapse(n, is_open):
 
 
 if __name__ == "__main__":
-    app.run_server(port=8888, debug=True)
+    app.run_server( debug=True)
 
 
 
