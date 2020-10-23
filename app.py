@@ -17,7 +17,7 @@ app = dash.Dash(
 
 
 
-from layouts import home, layout2
+#from layouts import  layout2, home
 
 ## Resources 
 PLOTLY_LOGO = app.get_asset_url("/image/bucaramanga.png")
@@ -109,7 +109,7 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/home"]:
-        return home
+        return html.P("Oh cool, this is home") # home
     elif pathname == "/page-2":
         return html.P("This is the content of page 2. Yay!")
     elif pathname == "/page-3":
