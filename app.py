@@ -4,7 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-app = dash.Dash(
+app = dash.Dash( __name__, 
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     # these meta_tags ensure content is scaled correctly on different devices
     # see: https://www.w3schools.com/css/css_rwd_viewport.asp for more
@@ -15,12 +15,13 @@ app = dash.Dash(
 )
 
 
+server = app.server
 
 
-from layouts import home, layout2
+from layouts import home, aboutus
 
 ## Resources 
-PLOTLY_LOGO = app.get_asset_url("/image/bucaramanga.png")
+PLOTLY_LOGO = app.get_asset_url("images/bucaramanga.png")
 
 ## end resources
 
@@ -72,7 +73,7 @@ sidebar = dbc.Navbar( [  html.Div(
                 [
                     dbc.NavLink("Home", href="/home", id="page-1-link"),
                     dbc.NavLink("Page 2", href="/page-2", id="page-2-link"),
-                    dbc.NavLink("Page 3", href="/page-3", id="page-3-link"),
+                    dbc.NavLink("About Us", href="/page-3", id="page-3-link"),
                 ],
                 vertical=True,
                 navbar=True
@@ -109,11 +110,11 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/home"]:
-        return home
+        return  home
     elif pathname == "/page-2":
-        return html.P("This is the content of page 2. Yay!")
+        return html.P("Oh cool, this is page 2!")
     elif pathname == "/page-3":
-        return html.P("Oh cool, this is page 3!")
+        return aboutus
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
@@ -136,7 +137,7 @@ def toggle_collapse(n, is_open):
 
 
 if __name__ == "__main__":
-    app.run_server(port=8888, debug=True)
+    app.run_server( debug=True)
 
 
 
