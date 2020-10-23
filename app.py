@@ -4,7 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-app = dash.Dash(
+app = dash.Dash( __name__, 
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     # these meta_tags ensure content is scaled correctly on different devices
     # see: https://www.w3schools.com/css/css_rwd_viewport.asp for more
@@ -21,7 +21,7 @@ server = app.server
 #from layouts import home, layout2
 
 ## Resources 
-PLOTLY_LOGO = app.get_asset_url("/image/bucaramanga.png")
+PLOTLY_LOGO = app.get_asset_url("/assets/images/bucaramanga.png")
 
 ## end resources
 
