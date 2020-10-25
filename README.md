@@ -14,3 +14,4 @@ layouts.py   Here are the layouts of the subpages
 assets/      Here are the resources, css and images... 
 .../images 
 ```
+prueba luz
