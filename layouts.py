@@ -200,15 +200,20 @@ sir = html.Div([
     html.P("SIR MODEL is a model can predict the numbers of infected people for COVID throught the time"),
 
 
-  
-
-  
 ])
 
 
 risk = html.Div([
 
-    html.H1('Covid-19 Bucaramanga Home'),
+    html.Div([
+        html.Div([
+            html.Span('COVID - 19 Bucaramanga - Risk Death Model'),
+
+
+        ]),
+    ]),
+
+
 
         
     dbc.Row(
@@ -252,17 +257,42 @@ risk = html.Div([
         ),
     html.H1("Risk Of Death Predictor"),
     html.P("Model for predict the probability of death because of COVID-19"),
+    
+    
+    dbc.Label("Age", html_for="slider"),
 
-    dbc.Row (
 
-        dbc.FormGroup(
-                        [
-                            dbc.Label("Age", html_for="slider"),
-                            dcc.Slider(id="slider-age", min=0, max=100, step=1, value=50),
-                        ]
-                    ),
+     html.Div([
 
-    ),
+             dcc.Slider(id="slider-age", min=0, max=100, step=1, value=5, 
+             marks = {
+                 0: '0',
+                 10: '10',
+                 20: '20',
+                 30: '30',
+                 40: '40',
+                 50: '50',
+                 60: '60',
+                 70: '70',
+                 80: '80',
+                 90: '90',
+                 100: '100'
+
+             }
+             ),
+                         
+
+
+
+
+
+        ]),
+
+        
+                
+               
+
+
 
     
     dbc.Row(
@@ -273,13 +303,13 @@ risk = html.Div([
                                         dbc.Label("Comorbilities"),
                                         dbc.Checklist(
                                         options=[
-                                            {"label": "Asma", "value": 1},
-                                            {"label": "Diabetes", "value": 2},
-                                            {"label": "VIH", "value": 3},
-                                            {"label": "Enfermedad Cardiaca", "value": 4},
+                                            {"label": "Asma", "value": 'ASM'},
+                                            {"label": "Diabetes", "value": 'DIA'},
+                                            {"label": "VIH", "value": 'VIH'},
+                                            {"label": "Enfermedad Cardiaca", "value": 'EFC'},
                                         ],
                                         value=[],
-                                        id="switches-input",
+                                        id="switches-input-comorbilities",
                                         switch=True,
                                     ),
                                     ]
@@ -293,13 +323,13 @@ risk = html.Div([
                                         dbc.Label("Comorbilities"),
                                         dbc.Checklist(
                                         options=[
-                                            {"label": "Cancer", "value": 5},
-                                            {"label": "Obesidad", "value": 6},
-                                            {"label": "Fumador", "value": 7},
-                                            {"label": "Insificiencia renal", "value": 8},
+                                            {"label": "Cancer", "value": 'CAN'},
+                                            {"label": "Obesidad", "value": 'OBS'},
+                                            {"label": "Fumador", "value": 'FUM'},
+                                            {"label": "Insificiencia renal", "value": 'IFR'},
                                         ],
                                         value=[],
-                                        id="switches-input-2",
+                                        id="switches-input-comorbilities-2",
                                         switch=True,
                                     ),
                                     ]
@@ -312,12 +342,12 @@ risk = html.Div([
                 dbc.Col([
 
                     dbc.Row(
-                        html.Div("Prediction"), 
+                        html.Button('Predicted', id='prediction-button', n_clicks=0), 
                         
                     ),
 
                     dbc.Row(
-                        html.H4("Valor"),
+                        html.Div(id='slider-age-output'), 
                     ),               
                     
                                

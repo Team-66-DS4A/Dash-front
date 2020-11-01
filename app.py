@@ -11,7 +11,8 @@ app = dash.Dash( __name__,
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
     ],
-    assets_external_path='./'
+    assets_external_path='./',
+    suppress_callback_exceptions=  True
 )
 
 
@@ -95,6 +96,19 @@ content = html.Div(id="page-content")
 
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 ## fin Navbar
+
+
+@app.callback(
+    dash.dependencies.Output('slider-age-output', 'children'),
+    [dash.dependencies.Input('slider-age', 'value'),
+    dash.dependencies.Input('switches-input-comorbilities', 'value'),
+    dash.dependencies.Input('switches-input-comorbilities-2', 'value'),
+    dash.dependencies.Input('prediction-button', 'n_clicks')
+    ])
+def update_output(slider, switches, switches2, n_clicks):
+    
+    return 'You have selected {}, {}, {},{}'.format(slider,switches,switches2, n_clicks)
+
 
 
 @app.callback(
