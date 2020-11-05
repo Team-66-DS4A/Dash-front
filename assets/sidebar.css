@@ -1,16 +1,28 @@
 #sidebar {
-  background-color: #999999;
+  background-color: #000;
   display: block;
-  z-index: 2;
+  z-index: 3;
   background-repeat:no-repeat;
   background-size: contain;
-  vertical-align: center;
+
+}
+
+
+
+#_dash-app-content{
+  background-color: #eff1f2;
+}
+
+#topBar{
+  z-index: 2;
+  display: block;
 }
 
 #sidebar h2 {
   text-align: left;
   margin-bottom: 0;
 }
+
 
 /* Hide the blurb on a small screen */
 #blurb {
@@ -25,9 +37,6 @@
   margin-top: 5rem;
 }
 
-#page-content {
-  padding: 2rem 1rem;
-}
 
 /* add the three horizontal bars icon for the toggle */
 .navbar-toggler-icon {
@@ -64,7 +73,10 @@
   }
 
   #page-content {
-    margin-left: 18rem;
+    margin-left: 2rem;
     margin-right: 2rem;
+  }
+  #content{
+    margin-left: 210px;
   }
 }
