@@ -1,3 +1,4 @@
+from layouts import home, dashboard, aboutus, sir, risk
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -19,29 +20,43 @@ app = dash.Dash( __name__,
 server = app.server
 
 
-from layouts import home, aboutus, sir, risk
-
-## Resources 
+# Resources
 PLOTLY_LOGO = app.get_asset_url("images/bucaramanga.png")
 
-## end resources
+# end resources
+
+
+# Top bar
+top_navbar = dbc.Navbar(
+    [
+        dbc.NavbarBrand("Covid-19 Bucaramanga", className="ml-2"),
+
+    ],
+    color="white",
+    sticky="top",
+    id="topBar",
+    style={'z-index': 1}
+)
+
+# end top bar
 
 sidebar_header = dbc.Row(
     [
         dbc.Col(
 
             html.A(
-            # Use row and col to control vertical alignment of logo / brand
-            dbc.Row(
-                [
-                    dbc.Col(html.Img(src=PLOTLY_LOGO, className="img-fluid")),
-                ],
-                align="center",
-                no_gutters=True,
-            ),
-            href="#",
+                # Use row and col to control vertical alignment of logo / brand
+                dbc.Row(
+                    [
+                        dbc.Col(html.Img(src=PLOTLY_LOGO,
+                                         className="img-fluid")),
+                    ],
+                    align="center",
+                    no_gutters=True,
+                ),
+                href="#",
 
-        ),
+            ),
         ),
         dbc.Col(
             html.Button(
@@ -64,7 +79,7 @@ sidebar_header = dbc.Row(
     ]
 )
 
-sidebar = dbc.Navbar( [  html.Div(
+sidebar = dbc.Navbar([html.Div(
     [
         sidebar_header,
         # we wrap the horizontal rule and short blurb in a div that can be
@@ -72,11 +87,25 @@ sidebar = dbc.Navbar( [  html.Div(
         dbc.Collapse(
             dbc.Nav(
                 [
-                    dbc.NavLink("Home", href="/home", id="page-1-link"),
-                    dbc.NavLink("SIR Model", href="/page-2", id="page-2-link"),
-                    dbc.NavLink("Risk of death", href ="/page-3", id ="page-3-link"),
-                    dbc.NavLink("About Us", href="/page-4", id="page-4-link"),
-                ],
+             
+                    dbc.NavLink( [  html.Span(html.I("home", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Home", className="nav-text") 
+                                           ], href="/", id="page-1-link", className="nav-header"),
+
+                    dbc.NavLink( [  html.Span(html.I("dashboard", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Dashboard", className="nav-text") 
+                                           ], href="/page-5", id="page-5-link", className="nav-header"),
+
+                     dbc.NavLink("SIR Model", href="/page-2",
+                                 id="page-2-link"),
+                     dbc.NavLink("Risk of death", href="/page-3",
+                                 id="page-3-link"),
+
+                    dbc.NavLink( [  html.Span(html.I("supervisor_account", className="material-icons"),
+                                           className="nav-icon"),  html.Span("About us", className="nav-text") 
+                                           ], href="/page-4", id="page-4-link", className="nav-header"),
+
+                     ],
                 vertical=True,
                 navbar=True
             ),
@@ -87,15 +116,18 @@ sidebar = dbc.Navbar( [  html.Div(
 ),
 
 ],
-color="dark",
+    color="#06102a",
     dark=True,
-        id="sidebar",
+    id="sidebar",
+    className="mm-show",
 )
 
 content = html.Div(id="page-content")
+content2 = html.Div([top_navbar,  content], id="content")
+app.layout = html.Div([dcc.Location(id="url"),  sidebar, content2])
 
-app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
-## fin Navbar
+
+# fin Navbar
 
 
 @app.callback(
@@ -125,7 +157,9 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/home"]:
-        return  home
+        return home
+    elif pathname == "/page-5":
+        return dashboard
     elif pathname == "/page-2":
         return sir
     elif pathname == "/page-3":
@@ -154,9 +188,6 @@ def toggle_collapse(n, is_open):
 
 
 if __name__ == "__main__":
-    app.run_server( debug=True)
+    app.run_server(debug=True)
 
-
-
-
-####Images etc 
+# Images etc
