@@ -1,46 +1,68 @@
+from layouts import home, dashboard, aboutus, spatial, risk
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-app = dash.Dash( __name__, 
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
-    # these meta_tags ensure content is scaled correctly on different devices
-    # see: https://www.w3schools.com/css/css_rwd_viewport.asp for more
-    meta_tags=[
-        {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-    ],
-    assets_external_path='./'
-)
+
+
+app = dash.Dash(__name__,
+                external_stylesheets=[dbc.themes.BOOTSTRAP],
+                # these meta_tags ensure content is scaled correctly on different devices
+                # see: https://www.w3schools.com/css/css_rwd_viewport.asp for more
+                meta_tags=[
+                    {"name": "viewport", "content": "width=device-width, initial-scale=1"}
+                ],
+                assets_external_path='./'
+                )
+app.title = 'Alcaldía Bucaramanga'
 
 
 server = app.server
 
 
-from layouts import home, aboutus, sir, risk
+# Resources
+PLOTLY_LOGO = app.get_asset_url("images/bucaramanga_logo.png")
 
-## Resources 
-PLOTLY_LOGO = app.get_asset_url("images/bucaramanga.png")
+# end resources
 
-## end resources
+
+# Top bar
+top_navbar = dbc.Navbar(
+    [
+        dbc.NavbarBrand(["Covid-19 Bucaramanga"],
+                        id="top_title", className="ml-2 wd"),
+
+    ],
+    color="white",
+    sticky="top",
+    id="topBar",
+    style={'z-index': 1}
+)
+
+# end top bar
 
 sidebar_header = dbc.Row(
     [
         dbc.Col(
 
             html.A(
-            # Use row and col to control vertical alignment of logo / brand
-            dbc.Row(
-                [
-                    dbc.Col(html.Img(src=PLOTLY_LOGO, className="img-fluid")),
-                ],
-                align="center",
-                no_gutters=True,
-            ),
-            href="#",
+                # Use row and col to control vertical alignment of logo / brand
+                dbc.Row(
+                    [
+                        dbc.Col([html.Img(src=PLOTLY_LOGO,
+                                         className="img-fluid w-50 text-center")], className="text-center"),
+                       
+                    ],
+                    align="center",
+                    no_gutters=True,
+                    className="justify-content-center"
+                ),
+                href="#",
 
-        ),
+            ),
+            
         ),
         dbc.Col(
             html.Button(
@@ -63,7 +85,7 @@ sidebar_header = dbc.Row(
     ]
 )
 
-sidebar = dbc.Navbar( [  html.Div(
+sidebar = dbc.Navbar([html.Div(
     [
         sidebar_header,
         # we wrap the horizontal rule and short blurb in a div that can be
@@ -71,11 +93,30 @@ sidebar = dbc.Navbar( [  html.Div(
         dbc.Collapse(
             dbc.Nav(
                 [
-                    dbc.NavLink("Home", href="/home", id="page-1-link"),
-                    dbc.NavLink("SIR Model", href="/page-2", id="page-2-link"),
-                    dbc.NavLink("Risk of death", href ="/page-3", id ="page-3-link"),
-                    dbc.NavLink("About Us", href="/page-4", id="page-4-link"),
-                ],
+
+             
+                    dbc.NavLink( [  html.Span(html.I("home", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Home", className="nav-text") 
+                                           ], href="/", id="page-1-link", className="nav-header"),
+
+                    dbc.NavLink([html.Span(html.I("dashboard", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Dashboard", className="nav-text")
+                                           ], href="/page-5", id="page-5-link", className="nav-header"),
+
+                     dbc.NavLink([html.Span(html.I("map", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Spatial Model", className="nav-text")
+                                           ], href="/page-2", id="page-2-link", className="nav-header"),
+
+                     dbc.NavLink([html.Span(html.I("favorite", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Risk of death", className="nav-text")
+                                           ], href="/page-3", id="page-3-link", className="nav-header"),
+
+
+                    dbc.NavLink([html.Span(html.I("supervisor_account", className="material-icons"),
+                                           className="nav-icon"),  html.Span("About us", className="nav-text")
+                                           ], href="/page-4", id="page-4-link", className="nav-header"),
+
+                     ],
                 vertical=True,
                 navbar=True
             ),
@@ -86,15 +127,29 @@ sidebar = dbc.Navbar( [  html.Div(
 ),
 
 ],
-color="dark",
+    color="#06102a",
     dark=True,
-        id="sidebar",
+    id="sidebar",
+    className="mm-show",
 )
 
 content = html.Div(id="page-content")
+content2 = html.Div([top_navbar,  content], id="content")
+app.layout = html.Div([dcc.Location(id="url"),  sidebar, content2])
 
-app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
-## fin Navbar
+
+# fin Navbar
+
+
+@app.callback(
+    dash.dependencies.Output('slider-age-output', 'children'),
+    [dash.dependencies.Input('slider-age', 'value'),
+    dash.dependencies.Input('switches-input-comorbidities', 'value'),
+    ])
+def update_output(slider, switches):
+    
+    return 'You have selected {}, {}'.format(slider,switches)
+
 
 
 @app.callback(
@@ -111,9 +166,11 @@ def toggle_active_links(pathname):
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/home"]:
-        return  home
+        return home
+    elif pathname == "/page-5":
+        return dashboard
     elif pathname == "/page-2":
-        return sir
+        return spatial
     elif pathname == "/page-3":
         return risk
     elif pathname == "/page-4":
@@ -139,10 +196,21 @@ def toggle_collapse(n, is_open):
     return is_open
 
 
+@app.callback(Output("top_title", "children"), [Input("url", "pathname")])
+def update_topTitle(pathname):
+    if pathname in ["/", "/home"]:
+        return "Covid-19 Bucaramanga"
+    elif pathname == "/page-5":
+        return "Dashboard"
+    elif pathname == "/page-2":
+        return "Spatial Model"
+    elif pathname == "/page-3":
+        return "Risk of Death"
+    elif pathname == "/page-4":
+        return "About us"
+
+
 if __name__ == "__main__":
-    app.run_server( debug=True)
+    app.run_server(debug=True)
 
-
-
-
-####Images etc 
+# Images etc
