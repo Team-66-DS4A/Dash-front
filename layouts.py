@@ -61,12 +61,11 @@ home = dashboard = html.Div([
                             src="https://miro.medium.com/max/1400/1*9BrpVqQkpXGPP4fLcrk5Dw.gif", top=True),
                         dbc.CardBody(
                             [
-                                html.H4("DasbBoard", className="card-title"),
                                 html.P(
-                                    "",
+                                    "Here you can find graphs and data analysis about COVID-19 in Bucaramanga City",
                                     className="card-text",
                                 ),
-                                dbc.Button("Go somewhere", color="primary"),
+                                dbc.Button("Dashboard", color="primary", href="/page-5"),
                             ]
                         ),
                     ],
@@ -78,12 +77,11 @@ home = dashboard = html.Div([
                             src="http://minjusticia.rt4apps.com/assets/images/s1.png", top=True),
                         dbc.CardBody(
                             [
-                                html.H4("SIR Model", className="card-title"),
                                 html.P(
                                     "",
                                     className="card-text",
                                 ),
-                                dbc.Button("Go somewhere", color="primary"),
+                                dbc.Button("Spatial Model", color="primary", href="/page-2"),
                             ]
                         ),
                     ],
@@ -96,13 +94,12 @@ home = dashboard = html.Div([
                             src="https://miro.medium.com/max/700/1*lsYP082Td5Ha0HzjmJfKBA.jpeg", top=True),
                         dbc.CardBody(
                             [
-                                html.H4("Risk of Death",
-                                        className="card-title"),
+
                                 html.P(
                                     "",
                                     className="card-text",
                                 ),
-                                dbc.Button("Go somewhere", color="primary"),
+                                dbc.Button("Risk Death Model", color="primary", href="/page-3", style = {"align": "center"}),
                             ]
                         ),
                     ],
@@ -133,10 +130,10 @@ dashboard = html.Div([
                     className="pt-2 pb-2 box "
                 ),
             ],
-            style={"width": "18rem"},
+            #style={"width": "18rem"},
         ),
         ],
-            className="col-xs-12 col-sm-6 col-xl pl-1.5 pr-1.5 pb-3 pb-xl-0"
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
         ),
         dbc.Col([dbc.Card(
             [
@@ -153,11 +150,11 @@ dashboard = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
-            style={"width": "18rem"},
+            #style={"width": "18rem"},
         ),
         ],
 
-            className="col-xs-12 col-sm-6 col-xl pl-1.5 pr-1.5 pb-3 pb-xl-0"
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
         ),
         dbc.Col([dbc.Card(
             [
@@ -167,17 +164,17 @@ dashboard = html.Div([
                                   className="float-right rounded w-40 accent text-center "),
                         html.H5(
                             "Activos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H3("1500", className="mt-0"),
+                        html.H4("1500"),
                     ],
 
                     className="pt-2 pb-2 box"
                 ),
             ],
-            style={"width": "18rem"},
+            #style={"width": "18rem"},
         ),
         ],
 
-            className="col-xs-12 col-sm-6 col-xl pl-1.5 pr-1.5 pb-3 pb-xl-0"
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
         ),
         dbc.Col([dbc.Card(
             [
@@ -193,11 +190,11 @@ dashboard = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
-            style={"width": "18rem"},
+            #style={"width": "18rem"},
         ),
         ],
 
-            className="col-xs-12 col-sm-6 col-xl pl-1.5 pr-1.5 pb-3 pb-xl-0"
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
         ),
 
 
@@ -205,6 +202,9 @@ dashboard = html.Div([
         className="mt-1 mb-2"
 
     ),
+
+
+
     dbc.Row(
         [
             dbc.Col(
@@ -230,7 +230,7 @@ dashboard = html.Div([
                         ],
                     )
                 ],
-                className="mt-1 mb-2 pl-1.5 pr-1.5"
+                className="mt-1 mb-2 pl-3 pr-3"
             ),
         ],
     ),
@@ -252,257 +252,448 @@ dashboard = html.Div([
                         ],
                     )
                 ],
-                className="mt-1 mb-2 pl-1.5 pr-1.5"
+                className="mt-1 mb-2 pl-3 pr-3"
             ),
         ],
     ),
-
-    dbc.Col([
-
-        dbc.Row([
-            dbc.Col(
-                html.H3("Bucaramanga Global Situation",
-                        className="text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                align="start"
-            ),
-            dbc.Col(
-
-
-                dbc.ButtonGroup([
-                    dbc.Button("Change", id="change"),
-                    dbc.Button("Accumulative", id="accumulative"),
-                ]),
-            ),
-
-            dbc.Col(
-
-                dbc.ButtonGroup([
-                    dbc.Button("Daily", id="daily"),
-                    dbc.Button("Weekly", id="weekly"),
-                ]),
-
-            ),
-        ]),
-
-    ]),
-
-    dbc.Row([
-            dbc.Col(
-                html.Div("Positives"),
-                width=1
-            ),
-
-            dbc.Col(
-                dcc.Graph(figure=fig_dia_fallecidos, id='positive_graphic'),
-
-            ),
-
-
-            ]),
-
-    dbc.Row([
-
-            dbc.Col(
-                html.H6("Deaths"),
-                width=1
-            ),
-
-            dbc.Col(
-                dcc.Graph(figure=fig_dia_fallecidos_acu, id='death_graphic'),
-
-            ),
-
-
-
-
-            ]),
-])
+   
+],
+    className='container',
+)
 
 
 sir = html.Div([
 
-    html.H1('Covid-19 Bucaramanga Home'),
-
-
-    dbc.Row(
-        [
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Positivos"),
-                    ),
-                    dbc.Row(
+    dbc.Row([
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("add_alert", className="material-icons"),
+                                  className="float-right rounded w-40 danger text-center "),
+                        html.H5(
+                            "Positivos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
                         html.H4("15000"),
-                    ),
-                    ]),
+                    ],
 
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Recuperados"),
-                    ),
-                    dbc.Row(
+                    className="pt-2 pb-2 box "
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+
+                dbc.CardBody(
+                    [html.Span(html.I("mood", className="material-icons"),
+                               className="float-right rounded w-40 primary text-center "),
+                        html.H5(
+                            "Recuperados", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
                         html.H4("13000"),
-                    ),
-                    ]),
 
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Activos"),
-                    ),
-                    dbc.Row(
+                     ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("error", className="material-icons"),
+                                  className="float-right rounded w-40 accent text-center "),
+                        html.H5(
+                            "Activos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
                         html.H4("1500"),
-                    ),
-                    ]),
+                    ],
 
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Fallecidos"),
-                    ),
-                    dbc.Row(
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("local_hospital", className="material-icons"),
+                                  className="float-right rounded w-40 warn text-center "),
+                        html.H5(
+                            "Fallecidos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
                         html.H4("500"),
-                    ),
-                    ]),
-        ]
+                    ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+
+
+    ],
+        className="mt-1 mb-2"
+
     ),
 
+    html.H1("Spatial Model"),
 
 
-    html.H1("SIR MODEL"),
+    html.P("Spatial Model is a model can predict the numbers of infected people for COVID throught the time"),
 
-
-    html.P("SIR MODEL is a model can predict the numbers of infected people for COVID throught the time"),
-
-
-
-
-
-])
+],
+className='container',
+)
 
 
 risk = html.Div([
 
-    html.H1('Covid-19 Bucaramanga Home'),
-
-
-    dbc.Row(
-        [
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Positivos"),
-                    ),
-                    dbc.Row(
-                        html.H4("15000"),
-                    ),
-                    ]),
-
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Recuperados"),
-                    ),
-                    dbc.Row(
-                        html.H4("13000"),
-                    ),
-                    ]),
-
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Activos"),
-                    ),
-                    dbc.Row(
-                        html.H4("1500"),
-                    ),
-                    ]),
-
-            dbc.Col([
-                    dbc.Row(
-                        html.H2("Fallecidos"),
-                    ),
-                    dbc.Row(
-                        html.H4("500"),
-                    ),
-                    ]),
-        ]
-    ),
-    html.H1("Risk Of Death Predictor"),
-    html.P("Model for predict the probability of death because of COVID-19"),
-
-    dbc.Row(
-
-        dbc.FormGroup(
+    dbc.Row([
+        dbc.Col([dbc.Card(
             [
-                dbc.Label("Age", html_for="slider"),
-                dcc.Slider(id="slider-age", min=0, max=100, step=1, value=50),
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("add_alert", className="material-icons"),
+                                  className="float-right rounded w-40 danger text-center "),
+                        html.H5(
+                            "Positivos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("15000"),
+                    ],
+
+                    className="pt-2 pb-2 box "
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+
+                dbc.CardBody(
+                    [html.Span(html.I("mood", className="material-icons"),
+                               className="float-right rounded w-40 primary text-center "),
+                        html.H5(
+                            "Recuperados", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("13000"),
+
+                     ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("error", className="material-icons"),
+                                  className="float-right rounded w-40 accent text-center "),
+                        html.H5(
+                            "Activos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("1500"),
+                    ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("local_hospital", className="material-icons"),
+                                  className="float-right rounded w-40 warn text-center "),
+                        html.H5(
+                            "Fallecidos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("500"),
+                    ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+
+
+    ],
+        className="mt-1 mb-2"
+
+    ),
+
+
+    dbc.Card(
+
+        dbc.CardBody([
+              html.H1("Risk Of Death Predictor"),
+              dbc.Alert(
+              "Select comorbilities and age for calculated risk of death by COVID-19",
+              id="alert-prediction-death",
+              dismissable=False,
+              fade=False,
+              is_open=True,
+        ),
+            ],
+        ),
+    ),
+
+    dbc.Card(
+
+        dbc.CardBody([
+
+            dbc.Label("Age ", html_for="slider"),
+            
+            html.I(className = "fa fa-question-circle",
+            id= "tooltip-target-age",
+            style = {"padding" : "1rem"}, ),
+            
+           
+
+
+
+     html.Div([
+
+             dcc.Slider(id="slider-age", min=0, max=100, step=1, value=5, 
+             marks = {
+                 0: '0',
+                 10: '10',
+                 20: '20',
+                 30: '30',
+                 40: '40',
+                 50: '50',
+                 60: '60',
+                 70: '70',
+                 80: '80',
+                 90: '90',
+                 100: '100'
+
+             }
+             ),
+    ]
+    ),
+
+              
+            ],
+        ),
+       
+    ),
+    
+            #dbc.Button("?", )           
+
+    dbc.Tooltip(
+                    "Select your age with the slider",
+                    target="tooltip-target-age",
+                ),
+
+    dbc.Tooltip(
+                    "Select the cormobilites that you have",
+                    target="tooltip-target-comorbidities",
+                ),
+
+
+
+    dbc.Row(
+            [
+                dbc.Col(
+
+                    dbc.Card(
+
+                        dbc.CardBody([
+                             dbc.FormGroup(
+                                    [
+                                        dbc.Label("Comorbidities"),
+                                        html.I(className = "fa fa-question-circle",
+                                        id= "tooltip-target-comorbidities",
+                                        style = {"padding" : "1rem"}, ),
+                                        dbc.Checklist(
+                                        options=[
+                                            {"label": "Diabetes", "value": 'DIA'},
+                                            {"label": "Heart disease", "value": 'EFC'},
+                                            {"label": "Cancer", "value": 'CAN'},
+                                            {"label": "Obesity", "value": 'OBS'},
+                                            {"label": "Renal insufficiency", "value": 'IFR'},
+                                        ],
+                                        value=[],
+                                        id="switches-input-comorbidities",
+                                        switch=True,                                   
+                                    ),
+                                    
+            
+                                    ]
+                                ),
+                            ],
+                        ),
+                        color = "primary", 
+                        outline = True,
+                        style = {"margin":"0.25rem auto 1.5rem"}
+                    ),
+
+                                     
+                     width=3,
+                     lg=3),
+
+
+
+
+            dbc.Col([
+
+                    dbc.Card(
+                        dbc.CardBody([
+
+                            html.H4("Risk prediction of Death", className="card-prediciton-title"),
+                            html.Div(id='slider-age-output'), 
+                            dbc.Progress("25%", value=25),
+
+
+                        ]),
+
+                        color = "primary", 
+                        outline = True,
+                        style = {"margin":"0.25rem auto 1.5rem"},
+
+                                       
+                   ),
+                   
+                    
+
+                   
+                               
+                ],
+                width=6,
+                lg=6,
+                
+                
+                ),
+
+
+            dbc.Col(
+
+                    dbc.Card(
+                        dbc.CardBody([
+
+                            html.H4("Risk classification", className="card-classification-title"),
+
+                            dbc.Alert(
+                                    "71-100% : High Risk\n"
+                                    "41-70% : Medium Risk\n"
+                                    "0-40% : Low Risk",
+                                    id="alert-prediction-risk",
+                                    dismissable=False,
+                                    fade=False,
+                                    is_open=True,
+                                ),
+
+
+                        ]),
+
+                        color = "primary", 
+                        outline = True,
+                        style = {"margin":"0.25rem auto 1.5rem"},
+
+                                       
+                   ),
+                   width= 3,
+                   lg= 3,
+
+                    
+                ),
+
+
+
             ]
+        ),
+
+    
+    dbc.Row([
+
+        dbc.Card(
+
+            dbc.CardBody([
+
+                
+        dbc.Col(
+
+            dbc.Card(
+
+            dbc.CardBody(
+                
+                dcc.Graph(figure=edad_mortalidad, id='edad_fallecidos'),
+
+            ),
+
+        ),
+
+        ),
+
+
+         dbc.Col(
+
+            dbc.Card(
+
+            dbc.CardBody(
+                
+                dcc.Graph(figure=edad_mortalidad, id='edad_fallecidos'),
+
+            ),
+
         ),
 
     ),
 
 
-    dbc.Row(
-        [
-            dbc.Col(
-                dbc.FormGroup(
-                    [
-                        dbc.Label("Comorbilities"),
-                        dbc.Checklist(
-                            options=[
-                                {"label": "Asma", "value": 1},
-                                {"label": "Diabetes", "value": 2},
-                                {"label": "VIH", "value": 3},
-                                {"label": "Enfermedad Cardiaca",
-                                 "value": 4},
-                            ],
-                            value=[],
-                            id="switches-input",
-                            switch=True,
-                        ),
-                    ]
-                ),
-                width=6,
-                lg=3),
-
-            dbc.Col(
-                dbc.FormGroup(
-                    [
-                        dbc.Label("Comorbilities"),
-                        dbc.Checklist(
-                            options=[
-                                {"label": "Cancer", "value": 5},
-                                {"label": "Obesidad", "value": 6},
-                                {"label": "Fumador", "value": 7},
-                                {"label": "Insificiencia renal",
-                                 "value": 8},
-                            ],
-                            value=[],
-                            id="switches-input-2",
-                            switch=True,
-                        ),
-                    ]
-                ),
-                width=6,
-                lg=3),
 
 
 
-            dbc.Col([
 
-                    dbc.Row(
-                        html.Div("Prediction"),
-
-                    ),
-
-                    dbc.Row(
-                        html.H4("Valor"),
-                    ),
+            ]),
 
 
-                    ]),
-        ]
-    ),
 
-    dcc.Graph(figure=edad_mortalidad, id='edad_fallecidos'),
+        ),
 
 
-])
+
+
+
+
+
+    ]),
+
+
+],
+className='container',
+)
 
 
 aboutus = html.Div([
