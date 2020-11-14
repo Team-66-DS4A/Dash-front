@@ -96,7 +96,8 @@ home = dashboard = html.Div([
                             src="https://miro.medium.com/max/700/1*lsYP082Td5Ha0HzjmJfKBA.jpeg", top=True),
                         dbc.CardBody(
                             [
-                                html.H4("Risk of Death", className="card-title"),
+                                html.H4("Risk of Death",
+                                        className="card-title"),
                                 html.P(
                                     "",
                                     className="card-text",
@@ -506,136 +507,326 @@ risk = html.Div([
 
 aboutus = html.Div([
 
-    dbc.Row([
-        dbc.Col(
-            dbc.Card([
-                dbc.CardImg(src="/assets/images/profile.png", top=True),
-                dbc.CardBody([
-                     html.H4("Fabian Pallares", className="card-title"),
+    dbc.CardDeck([
+
+        dbc.Card([
+
+            html.Div([
+
+                 dbc.CardImg(src="assets/images/profiles/Alejandro.jpeg",
+                             top=True, className="img-circle"),
+                 dbc.CardBody([
+                     html.H4("Alejandro Ospina",
+                             className="card-title m-a-0 m-b-xs"),
+                     html.Div([
+                         html.A([ 
+                                html.I(className="fa fa-linkedin"),
+                                html.I(className="fa fa-linkedin cyan-600"),
+                                ], className="btn btn-icon btn-social rounded white btn-sm", href="https://www.linkedin.com/in/alejandro-ospina-cortés-317125158/"),
+
+                         html.A([
+                             html.I(className="fa fa-envelope"),
+                             html.I(className="fa fa-envelope red-600"),
+                         ], className="btn btn-icon btn-social rounded white btn-sm", href="mailto:aospinacortes@gmail.com"),
+
+                     ], className="block clearfix m-b"),
                      html.P(
-                         "Mathematician of University National of Colombia "
-                         "I like to be teacher.",
-                         className="card-text",
+                         "Mathematician, Analytics Analyst at Accenture",
+                         className="text-muted",
                      ),
-                     dbc.Button("Profile", color="primary"),
-                     ]
-                ),
-            ],
-                style={"width": "18rem"},
+
+                 ]
+
+                 ),
+
+                 ],
+                className="opacity_1"
             ),
+
+
+        ],
+            className="text-center",
+
         ),
 
-        dbc.Col(
-            dbc.Card([
-                dbc.CardImg(src="/assets/images/profile.png", top=True),
-                dbc.CardBody([
-                     html.H4("Alejandro Ospina", className="card-title"),
+        dbc.Card([
+
+            html.Div([
+
+                 dbc.CardImg(src="/assets/images/profiles/Fabian_gamboa.jpeg",
+                             top=True, className="img-circle"),
+                 dbc.CardBody([
+                     html.H4("Fabian Gamboa",
+                             className="card-title m-a-0 m-b-xs"),
+                     html.Div([
+                         html.A([
+                                html.I(className="fa fa-linkedin"),
+                                html.I(className="fa fa-linkedin cyan-600"),
+                                ], className="btn btn-icon btn-social rounded white btn-sm", href="https://www.linkedin.com/in/fabian-gamboa-01900b155"),
+
+                         html.A([
+                             html.I(className="fa fa-envelope"),
+                             html.I(className="fa fa-envelope red-600"),
+                         ], className="btn btn-icon btn-social rounded white btn-sm", href="mailto:fagamboas@unal.edu.co"),
+
+                     ], className="block clearfix m-b"),
                      html.P(
-                         "Mathematician of University National of Colombia "
-                         "I like to be teacher.",
-                         className="card-text",
+                         "Economist, Campaign's structure Analyst, Seguros Bolívar.",
+                         className="text-muted",
                      ),
-                     dbc.Button("Profile", color="primary"),
-                     ]
-                ),
-            ],
-                style={"width": "18rem"},
+
+                 ]
+
+                 ),
+
+                 ],
+                className="opacity_1"
             ),
+
+
+        ],
+            className="text-center",
+
         ),
 
-        dbc.Col(
-            dbc.Card([
-                dbc.CardImg(src="/assets/images/profile.png", top=True),
+        dbc.Card([
+
+            html.Div([
+
+                dbc.CardImg(src="/assets/images/profiles/Fabian.jpeg",
+                            top=True, className="img-circle"),
                 dbc.CardBody([
-                     html.H4("Jimmy Pulido", className="card-title"),
-                     html.P(
-                         "Mathematician of University National of Colombia "
-                         "I like to be teacher.",
-                         className="card-text",
-                     ),
-                     dbc.Button("Profile", color="primary"),
-                     ]
+                    html.H4("Fabian Pallares",
+                            className="card-title m-a-0 m-b-xs"),
+                    html.Div([
+                        html.A([
+                            html.I(className="fa fa-linkedin"),
+                            html.I(className="fa fa-linkedin cyan-600"),
+                        ], className="btn btn-icon btn-social rounded white btn-sm", href="https://www.linkedin.com/in/fabian-pallares-jaimes-643118164/"),
+
+                        html.A([
+                            html.I(className="fa fa-envelope"),
+                            html.I(className="fa fa-envelope red-600"),
+                        ], className="btn btn-icon btn-social rounded white btn-sm", href="mailto:fabianpallares23@gmail.com"),
+
+                    ], className="block clearfix m-b"),
+                    html.P(
+                        "Systems engineering student.  Emphasis on information and management systems",
+                        className="text-muted",
+                    ),
+
+                ]
+
                 ),
+
             ],
-                style={"width": "18rem"},
+                className="opacity_1"
             ),
+
+
+        ],
+            className="text-center",
+
         ),
+
+        dbc.Card([
+
+            html.Div([
+
+                dbc.CardImg(src="/assets/images/profiles/Jhon.jpeg",
+                            top=True, className="img-circle"),
+                dbc.CardBody([
+                    html.H4("Jhon Alexis Parra",
+                             className="card-title m-a-0 m-b-xs"),
+                    html.Div([
+                        html.A([
+                            html.I(className="fa fa-linkedin"),
+                            html.I(className="fa fa-linkedin cyan-600"),
+                        ], className="btn btn-icon btn-social rounded white btn-sm", href="https://www.linkedin.com/in/jhon-alexis-parra-abril-0a935515a/"),
+
+                        html.A([
+                            html.I(className="fa fa-envelope"),
+                            html.I(className="fa fa-envelope red-600"),
+                        ], className="btn btn-icon btn-social rounded white btn-sm", href="mailto:jhalpaab@gmail.com"),
+
+                    ], className="block clearfix m-b"),
+                    html.P(
+                        "Master in Business student,  Electronic engineer and Business Administrator.",
+                        className="text-muted",
+                    ),
+
+                ]
+
+                ),
+
+            ],
+                className="opacity_1"
+            ),
+
+
+        ],
+            className="text-center",
+
+        ),
+
+
+
 
     ]),
+    html.Br(),
+    dbc.CardDeck([
 
+        dbc.Card([
 
-    dbc.Row([
-        dbc.Col(
-            dbc.Card([
-                dbc.CardImg(src="/assets/images/profile.png", top=True),
+            html.Div([
+
+                dbc.CardImg(src="/assets/images/profiles/Jimmy.jpeg",
+                            top=True, className="img-circle"),
                 dbc.CardBody([
-                     html.H4("Wilmer Pineda", className="card-title"),
-                     html.P(
-                         "Mathematician of University National of Colombia "
-                         "I like to be teacher.",
-                         className="card-text",
-                     ),
-                     dbc.Button("Profile", color="primary"),
-                     ]
+                 html.H4("Jimmy Pulido",
+                         className="card-title m-a-0 m-b-xs"),
+                 html.Div([
+                     html.A([
+                          html.I(className="fa fa-linkedin"),
+                          html.I(className="fa fa-linkedin cyan-600"),
+                          ], className="btn btn-icon btn-social rounded white btn-sm", href="https://www.linkedin.com/in/jimmy-pulido-arias-0639411b3/"),
+
+                     html.A([
+                         html.I(className="fa fa-envelope"),
+                         html.I(className="fa fa-envelope red-600"),
+                     ], className="btn btn-icon btn-social rounded white btn-sm", href="mailto:jiapulidoar@gmail.com"),
+
+                 ], className="block clearfix m-b"),
+                 html.P(
+                     "Computer System Engineering student.",
+                     className="text-muted",
+                 ),
+
+                 ]
+
                 ),
+
             ],
-                style={"width": "18rem"},
+                className="opacity_1"
             ),
+
+
+        ],
+            className="text-center",
+
         ),
 
-        dbc.Col(
-            dbc.Card([
-                dbc.CardImg(src="/assets/images/profile.png", top=True),
+
+
+        dbc.Card([
+
+            html.Div([
+
+                dbc.CardImg(src="/assets/images/profiles/Luz.jpeg",
+                            top=True, className="img-circle"),
                 dbc.CardBody([
-                     html.H4("Luz Vanegas", className="card-title"),
-                     html.P(
-                         "Mathematician of University National of Colombia "
-                         "I like to be teacher.",
-                         className="card-text",
-                     ),
-                     dbc.Button("Profile", color="primary"),
-                     ]
+                 html.H4("Luz Dary Vanegas",
+                         className="card-title m-a-0 m-b-xs"),
+                 html.Div([
+                     html.A([
+                            html.I(className="fa fa-linkedin"),
+                            html.I(className="fa fa-linkedin cyan-600"),
+                            ], className="btn btn-icon btn-social rounded white btn-sm", href="https://www.linkedin.com/in/luz-dary-vanegas-penagos-a8517958"),
+
+                     html.A([
+                            html.I(className="fa fa-envelope"),
+                            html.I(className="fa fa-envelope red-600"),
+                            ], className="btn btn-icon btn-social rounded white btn-sm", href="mailto:luzdaryvanegaspenagos@gmail.com"),
+
+                 ], className="block clearfix m-b"),
+                 html.P(
+                     "Economista, especialista en estadística, Fraud prevention lead en PayU",
+                     className="text-muted",
+                 ),
+
+                 ]
+
                 ),
+
             ],
-                style={"width": "18rem"},
+                className="opacity_1"
             ),
+
+
+        ],
+            className="text-center",
+
         ),
 
-        dbc.Col(
-            dbc.Card([
-                dbc.CardImg(src="/assets/images/profile.png", top=True),
+        dbc.Card([
+
+            html.Div([
+
+                dbc.CardImg(src="/assets/images/profiles/Wilmer.jpeg",
+                            top=True, className="img-circle"),
                 dbc.CardBody([
-                     html.H4("Fabian Gamboa", className="card-title"),
-                     html.P(
-                         "Mathematician of University National of Colombia "
-                         "I like to be teacher.",
-                         className="card-text",
-                     ),
-                     dbc.Button("Profile", color="primary"),
-                     ]
+                 html.H4("Wilmer Pineda",
+                         className="card-title m-a-0 m-b-xs"),
+                 html.Div([
+                     html.A([
+                         html.I(className="fa fa-linkedin"),
+                         html.I(className="fa fa-linkedin cyan-600"),
+                     ], className="btn btn-icon btn-social rounded white btn-sm", href="https://www.linkedin.com/in/wilmer-pineda-85ab7262"),
+
+                     html.A([
+                         html.I(className="fa fa-envelope"),
+                         html.I(className="fa fa-envelope red-600"),
+                     ], className="btn btn-icon btn-social rounded white btn-sm", href="mailto:wpinedar@unal.edu.co"),
+
+                 ], className="block clearfix m-b"),
+                 html.P(
+                     "Mathematician, MSc in Mathematics, PhD (c) in Statistics. Professor at Universidad Santo Tomás . Data Scientist at the Superintendencia de Servicios Públicos.",
+                     className="text-muted",
+                 ),
+
+                 ]
+
                 ),
+
             ],
-                style={"width": "18rem"},
+                className="opacity_1"
             ),
+
+
+        ],
+            className="text-center",
+
         ),
 
-        dbc.Col(
-            dbc.Card([
-                dbc.CardImg(src="/assets/images/profile.png", top=True),
+         dbc.Card([
+
+            html.Div([
+
+                dbc.CardImg(src="assets/images/bucaramanga.png",
+                            top=True, ),
                 dbc.CardBody([
-                     html.H4("Jhon Parra", className="card-title"),
-                     html.P(
-                         "Mathematician of University National of Colombia "
-                         "I like to be teacher.",
-                         className="card-text",
-                     ),
-                     dbc.Button("Profile", color="primary"),
-                     ]
+
+                 html.P(
+                     "Agradecimientos a la Alcadía de Bucaramanga.",
+                     className="text-muted",
+                 ),
+
+                 ]
+
                 ),
+
             ],
-                style={"width": "18rem"},
+                className="opacity_1"
             ),
+
+
+        ],
+            className="text-center",
+
         ),
+
+
+
 
     ]),
 

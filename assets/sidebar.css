@@ -80,3 +80,11 @@
     margin-left: 210px;
   }
 }
+
+
+.img-circle {
+  border-radius: 50%;
+  width: 12rem;
+  height: 12rem;
+}
+
