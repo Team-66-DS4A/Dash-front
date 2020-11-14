@@ -5,16 +5,16 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-
-app = dash.Dash(__name__,
-                external_stylesheets=[dbc.themes.BOOTSTRAP],
-                # these meta_tags ensure content is scaled correctly on different devices
-                # see: https://www.w3schools.com/css/css_rwd_viewport.asp for more
-                meta_tags=[
-                    {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-                ],
-                assets_external_path='./'
-                )
+app = dash.Dash( __name__, 
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    # these meta_tags ensure content is scaled correctly on different devices
+    # see: https://www.w3schools.com/css/css_rwd_viewport.asp for more
+    meta_tags=[
+        {"name": "viewport", "content": "width=device-width, initial-scale=1"}
+    ],
+    assets_external_path='./',
+    suppress_callback_exceptions=  True
+)
 
 
 server = app.server
@@ -88,7 +88,7 @@ sidebar = dbc.Navbar([html.Div(
             dbc.Nav(
                 [
              
-                    dbc.NavLink( [  html.Span(html.I("home", className="material-icons"),
+                    dbc.NavLink( [  html.Span(html.I("Home", className="material-icons"),
                                            className="nav-icon"),  html.Span("Home", className="nav-text") 
                                            ], href="/", id="page-1-link", className="nav-header"),
 
@@ -96,7 +96,7 @@ sidebar = dbc.Navbar([html.Div(
                                            className="nav-icon"),  html.Span("Dashboard", className="nav-text") 
                                            ], href="/page-5", id="page-5-link", className="nav-header"),
 
-                     dbc.NavLink("SIR Model", href="/page-2",
+                     dbc.NavLink("Spatial Model", href="/page-2",
                                  id="page-2-link"),
                      dbc.NavLink("Risk of death", href="/page-3",
                                  id="page-3-link"),
@@ -128,6 +128,17 @@ app.layout = html.Div([dcc.Location(id="url"),  sidebar, content2])
 
 
 # fin Navbar
+
+
+@app.callback(
+    dash.dependencies.Output('slider-age-output', 'children'),
+    [dash.dependencies.Input('slider-age', 'value'),
+    dash.dependencies.Input('switches-input-comorbidities', 'value'),
+    ])
+def update_output(slider, switches):
+    
+    return 'You have selected {}, {}'.format(slider,switches)
+
 
 
 @app.callback(
