@@ -1,4 +1,4 @@
-from layouts import home, dashboard, aboutus, sir, risk
+from layouts import home, dashboard, aboutus, spatial, risk
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -95,7 +95,7 @@ sidebar = dbc.Navbar([html.Div(
                 [
 
              
-                    dbc.NavLink( [  html.Span(html.I("Home", className="material-icons"),
+                    dbc.NavLink( [  html.Span(html.I("home", className="material-icons"),
                                            className="nav-icon"),  html.Span("Home", className="nav-text") 
                                            ], href="/", id="page-1-link", className="nav-header"),
 
@@ -103,10 +103,14 @@ sidebar = dbc.Navbar([html.Div(
                                            className="nav-icon"),  html.Span("Dashboard", className="nav-text")
                                            ], href="/page-5", id="page-5-link", className="nav-header"),
 
-                     dbc.NavLink("Spatial Model", href="/page-2",
-                                 id="page-2-link"),
-                     dbc.NavLink("Risk of death", href="/page-3",
-                                 id="page-3-link"),
+                     dbc.NavLink([html.Span(html.I("map", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Spatial Model", className="nav-text")
+                                           ], href="/page-2", id="page-2-link", className="nav-header"),
+
+                     dbc.NavLink([html.Span(html.I("favorite", className="material-icons"),
+                                           className="nav-icon"),  html.Span("Risk of death", className="nav-text")
+                                           ], href="/page-3", id="page-3-link", className="nav-header"),
+
 
                     dbc.NavLink([html.Span(html.I("supervisor_account", className="material-icons"),
                                            className="nav-icon"),  html.Span("About us", className="nav-text")
@@ -166,7 +170,7 @@ def render_page_content(pathname):
     elif pathname == "/page-5":
         return dashboard
     elif pathname == "/page-2":
-        return sir
+        return spatial
     elif pathname == "/page-3":
         return risk
     elif pathname == "/page-4":
@@ -199,9 +203,9 @@ def update_topTitle(pathname):
     elif pathname == "/page-5":
         return "Dashboard"
     elif pathname == "/page-2":
-        return "Covid-19 Bucaramanga"
+        return "Spatial Model"
     elif pathname == "/page-3":
-        return "Covid-19 Bucaramanga"
+        return "Risk of Death"
     elif pathname == "/page-4":
         return "About us"
 
