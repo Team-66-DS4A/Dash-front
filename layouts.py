@@ -620,7 +620,7 @@ risk = html.Div([
                                         id="tooltip-target-high-risk",
                                         style={"padding": "1rem", "font-size": "4em"}, ),
 
-                                        html.P("High Risk: 70 - 100%", className = "mb-0", style = {"font-size": "15px"})
+                                        html.P("High Risk: 80 - 100%", className = "mb-0", style = {"font-size": "15px"})
 
                                     ],
                                     className = "d-flex align-items-center",
@@ -650,7 +650,7 @@ risk = html.Div([
                                         style={"padding": "1rem", "font-size": "4em"}, ),
 
 
-                                        html.P("Medium Risk: 60 - 80 %", className = "mb-0", style = {"font-size": "15px"})
+                                        html.P("Medium Risk: 60 - 79 %", className = "mb-0", style = {"font-size": "15px"})
 
                                     ],
                                     className = "d-flex align-items-center",
