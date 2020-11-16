@@ -14,4 +14,3 @@ app = dash.Dash(__name__,
 app.title = 'Alcaldía Bucaramanga'
 
 app.config.suppress_callback_exceptions=True
-server = app.server
