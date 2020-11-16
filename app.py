@@ -1,4 +1,7 @@
-from layouts import home, dashboard, aboutus, spatial, risk
+from layouts import home, dashboard, aboutus, risk
+
+from app_ import app
+from spatial import spatial
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -7,21 +10,6 @@ from dash.dependencies import Input, Output, State
 import math
 
 
-
-app = dash.Dash(__name__,
-                external_stylesheets=[dbc.themes.BOOTSTRAP],
-                # these meta_tags ensure content is scaled correctly on different devices
-                # see: https://www.w3schools.com/css/css_rwd_viewport.asp for more
-                meta_tags=[
-                    {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-                ],
-                suppress_callback_exceptions=True,
-                assets_external_path='./'             
-                )
-app.title = 'Alcaldía Bucaramanga'
-
-
-server = app.server
 
 
 # Resources
@@ -230,6 +218,10 @@ def update_topTitle(pathname):
         return "Risk of Death"
     elif pathname == "/page-4":
         return "About us"
+
+
+
+
 
 
 if __name__ == "__main__":
