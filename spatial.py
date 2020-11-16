@@ -10,6 +10,7 @@ import numpy as np
 import plotly.express as px
 import json
 
+from layouts import top_cards
 
 # Data
 padding_top = -430
@@ -54,93 +55,7 @@ fig_lines = px.line(df_comunas, x="Fecha", y="Pronóstico", line_group="Nombre C
 # ---------------------------------------------------------------------------- Spatial Model
 spatial = html.Div([
 
-    dbc.Row([
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("add_alert", className="material-icons"),
-                                  className="float-right rounded w-40 danger text-center "),
-                        html.H5(
-                            "Positivos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("15000"),
-                    ],
-
-                    className="pt-2 pb-2 box "
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-
-                dbc.CardBody(
-                    [html.Span(html.I("mood", className="material-icons"),
-                               className="float-right rounded w-40 primary text-center "),
-                        html.H5(
-                            "Recuperados", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("13000"),
-
-                     ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("error", className="material-icons"),
-                                  className="float-right rounded w-40 accent text-center "),
-                        html.H5(
-                            "Activos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("1500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("local_hospital", className="material-icons"),
-                                  className="float-right rounded w-40 warn text-center "),
-                        html.H5(
-                            "Fallecidos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-
-
-    ],
-        className="mt-1 mb-2"
-
-    ),
+    top_cards,
 
     dbc.Row(
         [

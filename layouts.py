@@ -26,34 +26,131 @@ comor_day = pd.read_csv("Data/comorbilidades_dia.csv", delimiter = ";")
 
 
 # Figuras
-fig_dia_fallecidos = px.line(dia_fallecidos, x="dia", y="casos")
-fig_dia_fallecidos_acu = px.line(dia_fallecidos, x="dia", y="casos_acumulado")
+fig_dia_fallecidos = px.line(dia_fallecidos, x="day", y="cases")
+fig_dia_fallecidos_acu = px.line(dia_fallecidos, x="day", y="cases_cummulative")
 
-fig_semana_fallecidos = px.line(semana_fallecidos, x="semana", y="casos")
+fig_semana_fallecidos = px.line(semana_fallecidos, x="week", y="cases")
 fig_semana_fallecidos_acu = px.line(
-    semana_fallecidos, x="semana", y="casos_acumulado")
+    semana_fallecidos, x="week", y="cases_cummulative")
 
-fig_dia_positivos = px.line(dia_positivos, x="dia", y="casos")
-fig_dia_positivos_acu = px.line(dia_positivos, x="dia", y="casos_acumulado")
+fig_dia_positivos = px.line(dia_positivos, x="day", y="cases")
+fig_dia_positivos_acu = px.line(dia_positivos, x="day", y="cases_cummulative")
 
-fig_semana_positivos = px.line(semana_positivos, x="semana", y="casos")
+fig_semana_positivos = px.line(semana_positivos, x="week", y="cases")
 fig_semana_positivos_acu = px.line(
-    semana_positivos, x="semana", y="casos_acumulado")
+    semana_positivos, x="week", y="cases_cummulative")
 
 
 
 edad_mortalidad = px.bar(edad_egresos_fallecidos,
-                          x="Edad", y="Identificacion", color="Egreso")
+                          x="Age", y="Identification", color="Status")
 
 fig_edad_mortalidad = px.line(edad_egresos_fallecidos,
                           x="Age", y="Identification", color="Status")
 
 fig_comor_day = px.line(comor_day, x="Day", y= ["Diabetes","Cancer", "Obesity", "Heart Disease", "Renal Insufficiency"])
 
-figura3 = px.bar(sexo_egresos, x='Sexo', y="Identificacion", color='Egreso')
+figura3 = px.bar(sexo_egresos, x='Sex', y="Identification", color='Status')
 
 
-#
+
+
+top_cards = dbc.Row([
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("add_alert", className="material-icons"),
+                                  className="float-right rounded w-40 danger text-center "),
+                        html.H5(
+                            "Total Cases", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("17007"),
+                    ],
+
+                    className="pt-2 pb-2 box "
+                ),
+            ],
+            color="danger",
+            outline=True,
+            #style={"width": "18rem"},
+        ),
+        ],
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+
+                dbc.CardBody(
+                    [html.Span(html.I("mood", className="material-icons"),
+                               className="float-right rounded w-40 primary text-center "),
+                        html.H5(
+                            "Total Recovered", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("15122"),
+
+                     ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            color="success",
+            outline=True,
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("error", className="material-icons"),
+                                  className="float-right rounded w-40 accent text-center "),
+                        html.H5(
+                            "Total Actives", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("1177"),
+                    ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            color="info",
+            outline=True,
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+        dbc.Col([dbc.Card(
+            [
+                dbc.CardBody(
+                    [
+                        html.Span(html.I("local_hospital", className="material-icons"),
+                                  className="float-right rounded w-40 warn text-center "),
+                        html.H5(
+                            "Total Deaths", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
+                        html.H4("702"),
+                    ],
+
+                    className="pt-2 pb-2 box"
+                ),
+            ],
+            color="warning",
+            outline=True,
+            #style={"width": "18rem"},
+        ),
+        ],
+
+            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
+        ),
+
+
+    ],
+        className="mt-1 mb-2"
+
+    )
+
 
 home = html.Div([
     dbc.Jumbotron(
@@ -72,7 +169,7 @@ home = html.Div([
                    style={"padding": "1rem", "transform" : "rotate(90deg)", "font-size": "2rem", "color": "#999999"}, ),
 
             html.P('"The Coronavirus has changed the planet, modifying the way we live and the way we interact with other people. In Colombia the impact has not been made waiting, and municipalities like Bucaramanga are looking for new and better ways to face the current situation. That is why information becomes our main asset and data visualization methods, the best tool to facilitate decision-making."',
-            style = { "font-color": "#666666", "font-size": "16px", "margin": "3rem auto 0", "padding": "0 12rem"}
+            style = { "font-color": "#666666", "font-size": "16px", "margin": "3rem auto 0", "padding": "0 12rem"}, className="text-muted"
             
             ),
 
@@ -211,101 +308,7 @@ home = html.Div([
 
 dashboard = html.Div([
 
-    dbc.Row([
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("add_alert", className="material-icons"),
-                                  className="float-right rounded w-40 danger text-center "),
-                        html.H5(
-                            "Positivos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("15000"),
-                    ],
-
-                    className="pt-2 pb-2 box "
-                ),
-            ],
-            color="danger",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-
-                dbc.CardBody(
-                    [html.Span(html.I("mood", className="material-icons"),
-                               className="float-right rounded w-40 primary text-center "),
-                        html.H5(
-                            "Recuperados", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("13000"),
-
-                     ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            color="success",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("error", className="material-icons"),
-                                  className="float-right rounded w-40 accent text-center "),
-                        html.H5(
-                            "Activos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("1500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            color="info",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("local_hospital", className="material-icons"),
-                                  className="float-right rounded w-40 warn text-center "),
-                        html.H5(
-                            "Fallecidos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            color="warning",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-
-
-    ],
-        className="mt-1 mb-2"
-
-    ),
+    top_cards,
 
 
 
@@ -422,7 +425,7 @@ dashboard = html.Div([
                         [
                             dbc.CardBody(
                                 [
-                                    html.H5("State by sex",
+                                    html.H5("Status by sex",
                                             className="card-title"),
 
                                     dcc.Graph(figure=figura3,
@@ -450,102 +453,8 @@ dashboard = html.Div([
 risk = html.Div([
 
     #Top definition 
-
-    dbc.Row([
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("add_alert", className="material-icons"),
-                                  className="float-right rounded w-40 danger text-center "),
-                        html.H5(
-                            "Positivos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("15000"),
-                    ],
-
-                    className="pt-2 pb-2 box "
-                ),
-            ],
-            color="danger",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-
-                dbc.CardBody(
-                    [html.Span(html.I("mood", className="material-icons"),
-                               className="float-right rounded w-40 primary text-center "),
-                        html.H5(
-                            "Recuperados", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("13000"),
-
-                     ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            color="success",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("error", className="material-icons"),
-                                  className="float-right rounded w-40 accent text-center "),
-                        html.H5(
-                            "Activos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("1500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            color="info",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("local_hospital", className="material-icons"),
-                                  className="float-right rounded w-40 warn text-center "),
-                        html.H5(
-                            "Fallecidos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            color="warning",
-            outline=True,
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-
-
-    ],
-        className="mt-1 mb-2"
-
-    ),
+    top_cards,
+    
 
 
     dbc.Card(
