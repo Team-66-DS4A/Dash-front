@@ -2,8 +2,10 @@ import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 import base64
+from app_ import app
+from dash import callback_context as ctx
 
-
+from dash.dependencies import Input, Output, State
 # Data analytics library
 
 import pandas as pd
@@ -20,13 +22,6 @@ semana_positivos = pd.read_csv("Data/casos_positivos_semana.csv")
 edad_egresos_fallecidos = pd.read_csv("Data/edad_egresos_fallecidos.csv")
 sexo_egresos = pd.read_csv("Data/sexo_egresos.csv")
 
-# Spatial Model
-padding_top = -430
-df_comunas = pd.read_csv(
-    "Data/geoplot/Pronósticos STDM.csv", sep=";", encoding="ISO-8859-1")
-
-with open('Data/geoplot/comunas.geojson') as f:
-    geojson = json.load(f)
 
 # Figuras
 fig_dia_fallecidos = px.line(dia_fallecidos, x="dia", y="casos")
@@ -44,22 +39,10 @@ fig_semana_positivos_acu = px.line(
     semana_positivos, x="semana", y="casos_acumulado")
 
 
-edad_mortalidad = px.line(edad_egresos_fallecidos,
+edad_mortalidad = px.bar(edad_egresos_fallecidos,
                           x="Edad", y="Identificacion", color="Egreso")
 figura3 = px.bar(sexo_egresos, x='Sexo', y="Identificacion", color='Egreso')
 
-
-# Spatial Model
-
-fig_spatial = px.choropleth(df_comunas, geojson=geojson, color="Observado",
-                            locations="Nombre Comuna", featureidkey="properties.NMS",  hover_name="Nombre Comuna",
-                            animation_frame="Fecha",   labels="Nombre Comuna", 
-                            projection="mercator")
-fig_spatial.update_geos(fitbounds="locations", visible=False)
-fig_spatial.update_layout(margin={"r": 0, "t": 140, "l": 0, "b": 0})
-
-fig_spatial['layout']['sliders'][0]['pad']['t'] = padding_top
-fig_spatial['layout']['updatemenus'][0]['pad']['t'] = padding_top
 
 #
 
@@ -99,7 +82,7 @@ home = dashboard = html.Div([
                             src="https://i.pinimg.com/originals/e5/07/d7/e507d704d4b6fdcb17116762fcd99acd.gif", top=True),
                         dbc.CardBody(
                             [
-                                  html.H3("Spatial Model"),
+                                html.H3("Spatial Model"),
                                 html.P(
                                     "Spatial Model is a model can predict the numbers of infected people for COVID throught the time.",
                                     className="card-text",
@@ -118,12 +101,12 @@ home = dashboard = html.Div([
                         dbc.CardImg(
                             src="https://wipitech.com/assets/images/ux.gif", top=True),
                         dbc.CardBody(
-                            [  html.H3("Risk of Death"),
+                            [html.H3("Risk of Death"),
 
                                 html.P(
                                     "",
                                     className="card-text",
-                                ),
+                            ),
                                 dbc.Button("Risk Death Model", color="primary",
                                            href="/page-3", style={"align": "center"}),
                             ],
@@ -242,16 +225,31 @@ dashboard = html.Div([
                                 [
 
                                     dbc.ButtonGroup([
-                                        dbc.Button("Daily", id="daily"),
-                                        dbc.Button("Weekly", id="weekly"),
+                                        dbc.Button(
+                                            "Daily", id="pos_daily", className="btn btn-outline b-info  text-black"),
+                                        dbc.Button(
+                                            "Weekly", id="pos_weekly", className="btn btn-outline b-info  text-black"),
                                     ],
-                                        className="float-right d-none d-lg-flex btn-group-sm btn-group"
+                                        className="float-right d-none d-lg-flex btn-group-sm btn-group",
+                                        id="but_positive"
                                     ),
+
+                                    dbc.Checklist(
+                                        options=[
+                                            {"label": "Cummulative", "value": 1},
+                                        ],
+                                        value=[],
+                                        id="pos_cum",
+                                        switch=True,
+                                        className="md",
+                                    ),
+
+
                                     html.H5("Positive cases",
                                             className="card-title"),
 
-                                    dcc.Graph(figure=fig_dia_fallecidos,
-                                              id='positive_graphic'),
+                                    dcc.Graph(
+                                        id='positives'),
                                 ]
                             ),
                         ],
@@ -270,10 +268,28 @@ dashboard = html.Div([
                         [
                             dbc.CardBody(
                                 [
+                                    dbc.ButtonGroup([
+                                        dbc.Button(
+                                            "Daily", id="death_daily", className="btn btn-outline b-info  text-black"),
+                                        dbc.Button(
+                                            "Weekly", id="death_weekly", className="btn btn-outline b-info  text-black"),
+                                    ],
+                                        className="float-right d-none d-lg-flex btn-group-sm btn-group"
+                                    ),
+
+                                    dbc.Checklist(
+                                        options=[
+                                            {"label": "Cummulative", "value": 1},
+                                        ],
+                                        value=[],
+                                        id="death_cum",
+                                        switch=True,
+                                        className="md",
+                                    ),
                                     html.H5("Deaths",
                                             className="card-title"),
                                     dcc.Graph(
-                                        figure=fig_dia_fallecidos_acu, id='death_graphic'),
+                                        figure=fig_dia_fallecidos, id='death'),
                                 ]
                             ),
                         ],
@@ -282,101 +298,6 @@ dashboard = html.Div([
                 className="mt-1 mb-2 pl-3 pr-3"
             ),
         ],
-    ),
-
-],
-    className='container',
-)
-
-#---------------------------------------------------------------------------- Spatial Model
-spatial = html.Div([
-
-    dbc.Row([
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("add_alert", className="material-icons"),
-                                  className="float-right rounded w-40 danger text-center "),
-                        html.H5(
-                            "Positivos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("15000"),
-                    ],
-
-                    className="pt-2 pb-2 box "
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-
-                dbc.CardBody(
-                    [html.Span(html.I("mood", className="material-icons"),
-                               className="float-right rounded w-40 primary text-center "),
-                        html.H5(
-                            "Recuperados", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("13000"),
-
-                     ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("error", className="material-icons"),
-                                  className="float-right rounded w-40 accent text-center "),
-                        html.H5(
-                            "Activos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("1500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-        dbc.Col([dbc.Card(
-            [
-                dbc.CardBody(
-                    [
-                        html.Span(html.I("local_hospital", className="material-icons"),
-                                  className="float-right rounded w-40 warn text-center "),
-                        html.H5(
-                            "Fallecidos", className="card-title text-muted font-weight-normal mt-2 mb-3 mr-5"),
-                        html.H4("500"),
-                    ],
-
-                    className="pt-2 pb-2 box"
-                ),
-            ],
-            #style={"width": "18rem"},
-        ),
-        ],
-
-            className="col-xs-12 col-sm-6 col-xl-3 pl-3 pr-3 pb-3 pb-xl-0"
-        ),
-
-
-    ],
-        className="mt-1 mb-2"
-
     ),
 
     dbc.Row(
@@ -387,22 +308,39 @@ spatial = html.Div([
                         [
                             dbc.CardBody(
                                 [
-                                     html.H5("Number of Covid-19 cases per comuna",
+                                    html.H5("Number of Covid-19 cases by age",
                                             className="card-title"),
-                                   dbc.Alert("Spatial Model is a model can predict the numbers of infected people for COVID throught the time. Please select the  date to visualize.", color="info", dismissable=True,),
-                                   
-                                    dcc.Graph(figure=fig_spatial,
-                                              id='spatial_model'),
+
+                                    dcc.Graph(figure=edad_mortalidad,
+                                              id='spatial_model_lines'),
                                 ]
                             ),
                         ],
                     )
                 ],
-                className="mt-1 mb-2 pl-3 pr-3"
+                className="mt-1 mb-2 pl-3 pr-3", lg="6", sm="12", md="auto"
+            ),
+
+            dbc.Col(
+                [
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                                [
+                                    html.H5("State by sex",
+                                            className="card-title"),
+
+                                    dcc.Graph(figure=figura3,
+                                              id='spatial_model_lines'),
+                                ]
+                            ),
+                        ],
+                    )
+                ],
+                className="mt-1 mb-2 pl-3 pr-3", lg="6", sm="12", md="auto"
             ),
         ],
     ),
-
 
 
 ],
@@ -1050,8 +988,8 @@ aboutus = html.Div([
 
             html.Div([
 
-                 dbc.CardImg(src="assets/images/bucaramanga.png",
-                             top=True, ),
+                 dbc.CardImg(src="assets/images/bucaramanga_logo.png",
+                             top=True, className="img-fluid w-50 text-center"),
                  dbc.CardBody([
 
                      html.P(
@@ -1080,3 +1018,48 @@ aboutus = html.Div([
 
 
 ])
+
+
+@app.callback(
+    Output('positives', 'figure'),
+    [Input('pos_daily', 'n_clicks'),
+     Input('pos_weekly', 'n_clicks'), Input('pos_cum', 'value')])
+def update_posfig(pos_daily, pos_weekly, pos_cum):
+    button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if(len(pos_cum) == 1):
+        if(button_id == "pos_daily"):
+            return fig_dia_positivos_acu
+        elif(button_id == "pos_weekly"):
+            return fig_semana_positivos_acu
+        return fig_dia_positivos_acu
+
+    if(button_id == "pos_daily"):
+        return fig_dia_positivos
+    elif(button_id == "pos_weekly"):
+        return fig_semana_positivos
+
+    return fig_dia_positivos
+
+
+
+@app.callback(
+    Output('death', 'figure'),
+    [Input('death_daily', 'n_clicks'),
+     Input('death_weekly', 'n_clicks'), Input('death_cum', 'value')])
+def update_deathfig(pos_daily, pos_weekly, pos_cum):
+    button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if(len(pos_cum) == 1):
+        if(button_id == "death_daily"):
+            return fig_dia_fallecidos_acu
+        elif(button_id == "death_weekly"):
+            return fig_semana_fallecidos_acu
+        return fig_dia_fallecidos_acu
+
+    if(button_id == "death_daily"):
+        return fig_dia_fallecidos
+    elif(button_id == "death_weekly"):
+        return fig_semana_fallecidos
+
+    return fig_dia_fallecidos
