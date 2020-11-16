@@ -10,7 +10,7 @@ from dash.dependencies import Input, Output, State
 import math
 
 
-
+server = app.server
 
 # Resources
 PLOTLY_LOGO = app.get_asset_url("images/bucaramanga_logo.png")
