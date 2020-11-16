@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
+import math
 
 
 
@@ -14,7 +15,8 @@ app = dash.Dash(__name__,
                 meta_tags=[
                     {"name": "viewport", "content": "width=device-width, initial-scale=1"}
                 ],
-                assets_external_path='./'
+                suppress_callback_exceptions=True,
+                assets_external_path='./'             
                 )
 app.title = 'Alcaldía Bucaramanga'
 
@@ -52,7 +54,7 @@ sidebar_header = dbc.Row(
                 dbc.Row(
                     [
                         dbc.Col([html.Img(src=PLOTLY_LOGO,
-                                         className="img-fluid w-50 text-center")], className="text-center"),
+                                         className="img-fluid w-50 text-center w-75 pt-5")], className="text-center"),
                        
                     ],
                     align="center",
@@ -142,13 +144,33 @@ app.layout = html.Div([dcc.Location(id="url"),  sidebar, content2])
 
 
 @app.callback(
-    dash.dependencies.Output('slider-age-output', 'children'),
+    [dash.dependencies.Output('progress', 'value'),
+    dash.dependencies.Output('progress', 'children')],
     [dash.dependencies.Input('slider-age', 'value'),
     dash.dependencies.Input('switches-input-comorbidities', 'value'),
     ])
 def update_output(slider, switches):
-    
-    return 'You have selected {}, {}'.format(slider,switches)
+    diabetes = 0
+    heart_disasse = 0
+    cancer = 0
+    obesity = 0
+    renal= 0
+
+    if "DIA" in switches:
+        diabetes = 1
+    if "EFC" in switches:
+        heart_disasse = 1
+    if "CAN" in switches:
+        cancer = 1
+    if "OBS" in switches:
+        obesity = 1
+    if "IFR" in switches:
+        renal = 1
+
+    probability = 1 / (1 + (math.e ** (-(-2.0283 + (0.0804*slider) + (0.6025*diabetes) + (0.8621*cancer) + (1.4573*obesity) + (1.3140*renal) + (1.3140*heart_disasse)))))
+    probability = round(probability * 100) 
+
+    return probability, f"{probability } %" if probability  >= 5 else ""
 
 
 
