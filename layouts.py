@@ -21,6 +21,8 @@ dia_positivos = pd.read_csv("Data/casos_positivos_dia.csv")
 semana_positivos = pd.read_csv("Data/casos_positivos_semana.csv")
 edad_egresos_fallecidos = pd.read_csv("Data/edad_egresos_fallecidos.csv")
 sexo_egresos = pd.read_csv("Data/sexo_egresos.csv")
+comor_day = pd.read_csv("Data/comorbilidades_dia.csv", delimiter = ";")
+#comor_week = pd.read_csv("Data/comorbilidades_semana.csv")
 
 
 # Figuras
@@ -39,19 +41,48 @@ fig_semana_positivos_acu = px.line(
     semana_positivos, x="semana", y="casos_acumulado")
 
 
+
 edad_mortalidad = px.bar(edad_egresos_fallecidos,
                           x="Edad", y="Identificacion", color="Egreso")
+
+fig_edad_mortalidad = px.line(edad_egresos_fallecidos,
+                          x="Age", y="Identification", color="Status")
+
+fig_comor_day = px.line(comor_day, x="Day", y= ["Diabetes","Cancer", "Obesity", "Heart Disease", "Renal Insufficiency"])
+
 figura3 = px.bar(sexo_egresos, x='Sexo', y="Identificacion", color='Egreso')
 
 
 #
 
-home = dashboard = html.Div([
+home = html.Div([
     dbc.Jumbotron(
         [
             html.Img(src="/assets/images/bga_rojo.png",
                      className="img-fluid")
         ], className="text-center"),
+
+
+    dbc.Row(
+
+        dbc.Col([
+
+            html.I(className="fa fa-bars",
+                   id="tooltip-target-home",
+                   style={"padding": "1rem", "transform" : "rotate(90deg)", "font-size": "2rem", "color": "#999999"}, ),
+
+            html.P('"The Coronavirus has changed the planet, modifying the way we live and the way we interact with other people. In Colombia the impact has not been made waiting, and municipalities like Bucaramanga are looking for new and better ways to face the current situation. That is why information becomes our main asset and data visualization methods, the best tool to facilitate decision-making."',
+            style = { "font-color": "#666666", "font-size": "16px", "margin": "3rem auto 0", "padding": "0 12rem"}
+            
+            ),
+
+
+            html.Hr(style = {"width" : "100px", "border": "3px solid #999999", "background-color": "#999999", "margin": "3rem auto"}),
+
+        ],
+        style = {"text-align": "center"},
+        ),
+    ),
 
     dbc.Container(
         [
@@ -60,13 +91,13 @@ home = dashboard = html.Div([
                 dbc.Card(
                     [
                         dbc.CardImg(
-                            src="https://miro.medium.com/max/1400/1*9BrpVqQkpXGPP4fLcrk5Dw.gif", top=True),
+                            src="/assets/images/dashboard.jpeg", top=True),
                         dbc.CardBody(
                             [
-                                html.H3("Dashboard"),
+                                html.H3("Dashboard", style = {"color": "#66666"}),
                                 html.P(
-                                    "Here you can find graphs and data analysis about COVID-19 in Bucaramanga City",
-                                    className="card-text",
+                                    "Here you can find graphs, data analysis and comments about COVID-19 in Bucaramanga City.",
+                                    className="card-text", style = {"font-size": "15px"},
                                 ),
                                 dbc.Button(
                                     "Dashboard", color="primary", href="/page-5"),
@@ -74,18 +105,20 @@ home = dashboard = html.Div([
                             className="text-center"
                         ),
                     ],
-                    style={"width": "18rem"},
+                    style={"width": "18rem", "margin": "0 1rem 0 0"},
                 ),
                 dbc.Card(
                     [
                         dbc.CardImg(
-                            src="https://i.pinimg.com/originals/e5/07/d7/e507d704d4b6fdcb17116762fcd99acd.gif", top=True),
+                            src="/assets/images/spatial_model.jpeg", top=True),
                         dbc.CardBody(
                             [
-                                html.H3("Spatial Model"),
+
+                                html.H3("Spatial Model", style = {"color": "#66666"}),
+
                                 html.P(
                                     "Spatial Model is a model can predict the numbers of infected people for COVID throught the time.",
-                                    className="card-text",
+                                    className="card-text", style = {"font-size": "15px"},
                                 ),
                                 dbc.Button("Spatial Model",
                                            color="primary", href="/page-2"),
@@ -99,24 +132,77 @@ home = dashboard = html.Div([
                 dbc.Card(
                     [
                         dbc.CardImg(
-                            src="https://wipitech.com/assets/images/ux.gif", top=True),
+                            src="/assets/images/risk_death.jpeg", top=True),
                         dbc.CardBody(
-                            [html.H3("Risk of Death"),
+
+                            [  html.H3("Risk of Death", style = {"color": "#66666"}),
 
                                 html.P(
-                                    "",
-                                    className="card-text",
-                            ),
+                                    "Model for calculated the probability of death due to COVID-19 and their relations with comorbidities and age.",
+                                    className="card-text", style = {"font-size": "15px"},
+                                ),
+
                                 dbc.Button("Risk Death Model", color="primary",
                                            href="/page-3", style={"align": "center"}),
                             ],
                             className="text-center"
                         ),
                     ],
-                    style={"width": "18rem"},
-                )
+                    style={"width": "18rem", "margin": "0 0 0 1rem"},                )
 
-            ])
+            ]),
+
+            html.Hr(style = {"width" : "100px", "border": "3px solid #999999", "background-color": "#999999", "margin": "3rem auto"}),
+
+            dbc.Row(
+
+
+                dbc.Col(
+                
+               
+                html.H1("PARTNERS"),
+                style = {"align": "center", "color": "#66666", "margin" : "0 auto 2rem"},
+                className="text-center",
+
+
+                ),
+
+            ),
+
+            dbc.Row ([
+
+                dbc.Col (
+
+                    html.Img(src="/assets/images/mintic.jpeg", className="img-fluid"),
+                    className = "d-flex justify-content-center align-items-center",
+
+
+                ),
+
+                dbc.Col (
+
+                    html.Img(src="/assets/images/alcaldia_bmanga.png", className="img-fluid"),
+                    className = "d-flex justify-content-center align-items-center",
+
+
+
+                ),
+
+
+                dbc.Col (
+
+                    html.Img(src="/assets/images/correlation.jpeg", className="img-fluid"),
+                    className = "d-flex justify-content-center align-items-center",
+
+
+
+                ),
+
+                
+
+
+            ], 
+            style = {"padding" : "0 0 5rem"}),
         ]
 
     )
@@ -140,6 +226,8 @@ dashboard = html.Div([
                     className="pt-2 pb-2 box "
                 ),
             ],
+            color="danger",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -160,6 +248,8 @@ dashboard = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
+            color="success",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -180,6 +270,8 @@ dashboard = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
+            color="info",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -200,6 +292,8 @@ dashboard = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
+            color="warning",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -300,6 +394,7 @@ dashboard = html.Div([
         ],
     ),
 
+
     dbc.Row(
         [
             dbc.Col(
@@ -348,7 +443,13 @@ dashboard = html.Div([
 )
 
 
+# Risk Model --------------------------------------------------------------------------
+
+# Layout definition
+
 risk = html.Div([
+
+    #Top definition 
 
     dbc.Row([
         dbc.Col([dbc.Card(
@@ -365,6 +466,8 @@ risk = html.Div([
                     className="pt-2 pb-2 box "
                 ),
             ],
+            color="danger",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -385,6 +488,8 @@ risk = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
+            color="success",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -405,6 +510,8 @@ risk = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
+            color="info",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -425,6 +532,8 @@ risk = html.Div([
                     className="pt-2 pb-2 box"
                 ),
             ],
+            color="warning",
+            outline=True,
             #style={"width": "18rem"},
         ),
         ],
@@ -446,19 +555,24 @@ risk = html.Div([
             dbc.Alert(
                 "Select comorbilities and age for calculated risk of death by COVID-19",
                 id="alert-prediction-death",
-                dismissable=False,
+                dismissable=True,
                 fade=False,
                 is_open=True,
+                color = "primary",
             ),
         ],
         ),
+        color="primary",
+        outline=True,
+        style={"margin": "0.5rem auto 0.75rem"},
     ),
 
     dbc.Card(
 
         dbc.CardBody([
 
-            dbc.Label("Age ", html_for="slider"),
+            
+            dbc.Label("Age ", html_for="slider", style = {"font-size":"24px"}),
 
             html.I(className="fa fa-question-circle",
                    id="tooltip-target-age",
@@ -493,20 +607,13 @@ risk = html.Div([
         ],
         ),
 
+        color="primary",
+        outline=True,
     ),
 
     #dbc.Button("?", )
 
-    dbc.Tooltip(
-        "Select your age with the slider",
-        target="tooltip-target-age",
-    ),
-
-    dbc.Tooltip(
-        "Select the cormobilites that you have",
-        target="tooltip-target-comorbidities",
-    ),
-
+   
 
 
     dbc.Row(
@@ -518,7 +625,7 @@ risk = html.Div([
                     dbc.CardBody([
                         dbc.FormGroup(
                             [
-                                dbc.Label("Comorbidities"),
+                                dbc.Label("Comorbidities", style = {"font-size":"24px"}),
                                 html.I(className="fa fa-question-circle",
                                        id="tooltip-target-comorbidities",
                                        style={"padding": "1rem"}, ),
@@ -543,16 +650,22 @@ risk = html.Div([
 
                             ]
                         ),
+                        
                     ],
+                    style = { "margin": "0.45rem 0 0"},
                     ),
                     color="primary",
                     outline=True,
-                    style={"margin": "0.25rem auto 1.5rem"}
+                    style={"margin": "0.25rem auto 1.5rem"},
+                    className = "h-100", 
+                    
                 ),
 
-
-                width=3,
-                lg=3),
+                className = "col-3",
+                style={"padding": "0.25rem 0 0"},
+                #width=3,
+                #lg=3
+            ),
 
 
 
@@ -562,49 +675,129 @@ risk = html.Div([
                     dbc.Card(
                         dbc.CardBody([
 
-                            html.H4("Risk prediction of Death",
-                                    className="card-prediciton-title"),
-                            html.Div(id='slider-age-output'),
-                            dbc.Progress("25%", value=25),
+                            dbc.Label("Risk Prediction of Death", style = {"font-size":"24px"}),
+                                html.I(className="fa fa-question-circle",
+                                       id="tooltip-target-risk-death",
+                                       style={"padding": "1rem"}, ),
+                            dbc.Progress(id ="progress", style = {"height" : "50px", "vertical-align": "middle"}, bar_style={"display":"flex", "font-size": "18px"}),
 
 
                         ]),
 
                         color="primary",
                         outline=True,
-                        style={"margin": "0.25rem auto 1.5rem"},
+                        style={"margin": "0.5rem auto 0.5rem"},
 
 
                     ),
 
 
-
-
-
-                    ],
-                    width=6,
-                    lg=6,
-
-
-                    ),
-
-
-            dbc.Col(
-
-                dbc.Card(
+                    dbc.Card(
                     dbc.CardBody([
 
-                        html.H4("Risk classification",
-                                className="card-classification-title"),
+                        dbc.Label("Risk Classificaction", style = {"font-size":"24px"}),
+                                html.I(className="fa fa-question-circle",
+                                       id="tooltip-target-risk-classification",
+                                       style={"padding": "1rem"}, ),
+
+                        dbc.Row([
+
+                            dbc.Col([
+                                dbc.Card(
+
+                                    dbc.CardBody([
+
+                                        html.I(className="fa fa-frown-o fa-2",
+                                        id="tooltip-target-high-risk",
+                                        style={"padding": "1rem", "font-size": "4em"}, ),
+
+                                        html.P("High Risk: 70 - 100%", className = "mb-0", style = {"font-size": "15px"})
+
+                                    ],
+                                    className = "d-flex align-items-center",
+                                    
+                                ),       
+                            color="danger",
+                            outline=True,
+                            style={"margin": "0.5rem auto 0.5rem"},
+
+                                ),
+
+                            ],
+                            
+                            ),
+
+
+
+
+                            dbc.Col([
+
+                                dbc.Card(
+
+                                    dbc.CardBody([
+
+                                        html.I(className="fa fa-meh-o fa-2",
+                                        id="tooltip-target-meh-risk",
+                                        style={"padding": "1rem", "font-size": "4em"}, ),
+
+
+                                        html.P("Medium Risk: 60 - 80 %", className = "mb-0", style = {"font-size": "15px"})
+
+                                    ],
+                                    className = "d-flex align-items-center",
+                                    ),
+
+                                color="warning",
+                                outline=True,
+                                style={"margin": "0.5rem auto 0.5rem"},    
+                                ),
+
+                                
+                                
+
+
+                            ]),
+
+                            dbc.Col([
+
+                                dbc.Card(
+
+
+                                    dbc.CardBody([
+
+                                            html.I(className="fa fa-smile-o fa-2",
+                                            id="tooltip-target-smile-risk",
+                                            style={"padding": "1rem", "font-size": "4em"}, ),
+
+
+                                            html.P("Low Risk: 0 - 59%", className = "mb-0", style = {"font-size": "15px"})
+
+                                        ],
+                                        className = "d-flex align-items-center",
+                                    ),
+
+                                    color="success",
+                                    outline=True,
+                                    style={"margin": "0.5rem auto 0.5rem"},    
+
+                                 ),
+
+
+
+                            ]),
+
+
+
+                        ]),
 
                         dbc.Alert(
-                            "71-100% : High Risk\n"
-                            "41-70% : Medium Risk\n"
-                            "0-40% : Low Risk",
+                            "Today more than ever we must stand firm and fight together to prevent the Covid-19 pandemic worldwide. Protection and quedarns at home is essential. - ILGA World",
                             id="alert-prediction-risk",
-                            dismissable=False,
+                            dismissable=True,
                             fade=False,
                             is_open=True,
+                            color = "warning",
+                            style = {"font-weight" : "700"}
                         ),
 
 
@@ -612,70 +805,124 @@ risk = html.Div([
 
                     color="primary",
                     outline=True,
-                    style={"margin": "0.25rem auto 1.5rem"},
+                    style={"margin": "0 auto"},
 
 
                 ),
-                width=3,
-                lg=3,
+
+
+
+
+
+                    ],
+                    #width=9,
+                    #lg=9,
+
+                    style={"padding": "0.25rem 0rem 0 0.5rem"},
+
+
+
+                    ),
+
+
+           
+
+        ],
+
+         style={"margin": "0.25rem 0 1.5rem"},
+
+
+    ),
+
+
+    dbc.Row([
+
+
+        dbc.Col([
+
+
+            dbc.Card(
+
+                dbc.CardBody([
+
+                    html.H1("Deaths for age and comorbidites "),
+                        dbc.Alert(
+                            "Graphs about death people per age and comorbidities throught time",
+                            id="alert-prediction-death",
+                            dismissable=True,
+                            fade=False,
+                            is_open=True,
+                            color="primary",
+                        ),
+
+
+
+
+
+
+                    dbc.Col(
+
+                        dbc.Card(
+
+                            dbc.CardBody([
+
+                                dbc.Label("Deaths per age", style = {"font-size":"24px"}),
+                                html.I(className="fa fa-question-circle",
+                                       id="tooltip-target-edad-fallecidos",
+                                       style={"padding": "1rem"}, ),
+
+                                dcc.Graph(figure=fig_edad_mortalidad,
+                                        id='edad_fallecidos'),
+
+                            ]),
+
+                        ),
+
+                    ),
+
+
+                    dbc.Col(
+
+                        dbc.Card(
+
+                            dbc.CardBody([
+
+
+                                dbc.Label("Deaths per comorbidites throught time", style = {"font-size":"24px"}),
+                                html.I(className="fa fa-question-circle",
+                                       id="tooltip-target-comorbidities-fallecidos",
+                                       style={"padding": "1rem"}, ),
+
+
+                                dcc.Graph(figure=fig_comor_day,
+                                        id='comor_day'),
+
+                            ]),
+
+                        ),
+
+                    ),
+
+
+
+
+
+
+                ]),
+
+
+                color="warning",
+                outline=True,
+
 
 
             ),
 
 
 
-        ]
-    ),
+        ]),
 
 
-    dbc.Row([
-
-        dbc.Card(
-
-            dbc.CardBody([
-
-
-                dbc.Col(
-
-                    dbc.Card(
-
-                        dbc.CardBody(
-
-                            dcc.Graph(figure=edad_mortalidad,
-                                      id='edad_fallecidos'),
-
-                        ),
-
-                    ),
-
-                ),
-
-
-                dbc.Col(
-
-                    dbc.Card(
-
-                        dbc.CardBody(
-
-                            dcc.Graph(figure=edad_mortalidad,
-                                      id='edad_fallecidos'),
-
-                        ),
-
-                    ),
-
-                ),
-
-
-
-
-
-
-            ]),
-
-
-
-        ),
 
 
 
@@ -684,6 +931,39 @@ risk = html.Div([
 
 
     ]),
+
+    # Tooltips
+
+    dbc.Tooltip(
+        "Select your age with the slider",
+        target="tooltip-target-age",
+    ),
+
+    dbc.Tooltip(
+        "Select the cormobilites that you have",
+        target="tooltip-target-comorbidities",
+    ),
+
+    dbc.Tooltip(
+        "Probability of death by COVID-19 per comorbidities and age ",
+        target="tooltip-target-risk-death",
+    ),
+
+    dbc.Tooltip(
+        "Risk probability classification of death for the model",
+        target="tooltip-target-risk-classification",
+    ),
+
+    dbc.Tooltip(
+        "Axis y: People death and axis x: Age number",
+        target="tooltip-target-edad-fallecidos",
+    ),
+
+    dbc.Tooltip(
+        "Axis y: Death People and axis x: Comorbidities, It is possible select each comorbidities click-on in variable option",
+        target="tooltip-target-comorbidities-fallecidos",
+    ),
+
 
 
 ],
@@ -700,7 +980,7 @@ aboutus = html.Div([
             html.Div([
 
                  dbc.CardImg(src="assets/images/profiles/Alejandro.jpeg",
-                             top=True, className="img-circle"),
+                             top=True, className="img-circle", style = {"margin-top": "1.125rem"}),
                  dbc.CardBody([
                      html.H4("Alejandro Ospina",
                              className="card-title m-a-0 m-b-xs"),
@@ -740,7 +1020,7 @@ aboutus = html.Div([
             html.Div([
 
                  dbc.CardImg(src="/assets/images/profiles/Fabian_gamboa.jpeg",
-                             top=True, className="img-circle"),
+                             top=True, className="img-circle" , style = {"margin-top": "1.125rem"}),
                  dbc.CardBody([
                      html.H4("Fabian Gamboa",
                              className="card-title m-a-0 m-b-xs"),
@@ -780,7 +1060,7 @@ aboutus = html.Div([
             html.Div([
 
                 dbc.CardImg(src="/assets/images/profiles/Fabian.jpeg",
-                            top=True, className="img-circle"),
+                            top=True, className="img-circle", style = {"margin-top": "1.125rem"}),
                 dbc.CardBody([
                     html.H4("Fabian Pallares",
                             className="card-title m-a-0 m-b-xs"),
@@ -820,7 +1100,7 @@ aboutus = html.Div([
             html.Div([
 
                 dbc.CardImg(src="/assets/images/profiles/Jhon.jpeg",
-                            top=True, className="img-circle"),
+                            top=True, className="img-circle",  style = {"margin-top": "1.125rem"}),
                 dbc.CardBody([
                     html.H4("Jhon Alexis Parra",
                              className="card-title m-a-0 m-b-xs"),
@@ -867,7 +1147,7 @@ aboutus = html.Div([
             html.Div([
 
                 dbc.CardImg(src="/assets/images/profiles/Jimmy.jpeg",
-                            top=True, className="img-circle"),
+                            top=True, className="img-circle", style = {"margin-top": "1.125rem"}),
                 dbc.CardBody([
                  html.H4("Jimmy Pulido",
                          className="card-title m-a-0 m-b-xs"),
@@ -909,7 +1189,7 @@ aboutus = html.Div([
             html.Div([
 
                 dbc.CardImg(src="/assets/images/profiles/Luz.jpeg",
-                            top=True, className="img-circle"),
+                            top=True, className="img-circle", style = {"margin-top": "1.125rem"}),
                 dbc.CardBody([
                  html.H4("Luz Dary Vanegas",
                          className="card-title m-a-0 m-b-xs"),
@@ -949,7 +1229,7 @@ aboutus = html.Div([
             html.Div([
 
                 dbc.CardImg(src="/assets/images/profiles/Wilmer.jpeg",
-                            top=True, className="img-circle"),
+                            top=True, className="img-circle", style = {"margin-top": "1.125rem"}),
                 dbc.CardBody([
                  html.H4("Wilmer Pineda",
                          className="card-title m-a-0 m-b-xs"),
@@ -988,12 +1268,13 @@ aboutus = html.Div([
 
             html.Div([
 
-                 dbc.CardImg(src="assets/images/bucaramanga_logo.png",
-                             top=True, className="img-fluid w-50 text-center"),
+
+                 dbc.CardImg(src="/assets/images/profiles/bucaramanga.jpeg",
+                             top=True, style = {"margin-top": "1.125rem"}),
                  dbc.CardBody([
 
                      html.P(
-                         "Agradecimientos a la Alcadía de Bucaramanga.",
+                         "Greetings to Bucaramanga Town Hall.",
                          className="text-muted",
                      ),
 
