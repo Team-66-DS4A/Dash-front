@@ -1,7 +1,7 @@
 ,Sex,Status,Identification
-0,F,Fallecido,164
-1,F,Pendiente,934
-2,F,Recuperado,4741
-3,M,Fallecido,383
-4,M,Pendiente,1044
-5,M,Recuperado,5450
+0,F,Dead,164
+1,F,Pending,934
+2,F,Recovered,4741
+3,M,Dead,383
+4,M,Pending,1044
+5,M,Recovered,5450
