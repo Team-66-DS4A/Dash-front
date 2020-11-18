@@ -1026,7 +1026,7 @@ aboutus = html.Div([
 
                     ], className="block clearfix m-b"),
                     html.P(
-                        "Master in Business student,  Electronic engineer and Business Administrator.",
+                        "M in Business Student, Electronic engineer and Business Administrator.",
                         className="text-muted",
                     ),
 
@@ -1035,7 +1035,7 @@ aboutus = html.Div([
                 ),
 
             ],
-                className="opacity_1"
+                className="opacity_1",
             ),
 
 
@@ -1073,7 +1073,7 @@ aboutus = html.Div([
 
                  ], className="block clearfix m-b"),
                  html.P(
-                     "Computer System Engineering student.",
+                     "Computer System Engineering Student.",
                      className="text-muted",
                  ),
 
@@ -1115,7 +1115,7 @@ aboutus = html.Div([
 
                  ], className="block clearfix m-b"),
                  html.P(
-                     "Economista, especialista en estadística, Fraud prevention lead en PayU",
+                     "Economist,  Statistician Especialist, Fraud Prevention Lead in PayU",
                      className="text-muted",
                  ),
 
