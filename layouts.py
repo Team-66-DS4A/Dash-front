@@ -496,15 +496,25 @@ risk = html.Div([
                 dcc.Slider(id="slider-age", min=0, max=100, step=1, value=5,
                            marks={
                                0: '0',
+                               5: '5',
                                10: '10',
+                               15: '15',
                                20: '20',
+                               25: '25',
                                30: '30',
+                               35: '35',
                                40: '40',
+                               45: '45',
                                50: '50',
+                               55: '55',
                                60: '60',
+                               65: '65',
                                70: '70',
+                               75: '75',
                                80: '80',
+                               85: '85',
                                90: '90',
+                               95: '95',
                                100: '100'
 
                            }
@@ -1026,7 +1036,7 @@ aboutus = html.Div([
 
                     ], className="block clearfix m-b"),
                     html.P(
-                        "Master in Business student,  Electronic engineer and Business Administrator.",
+                        "M in Business Student, Electronic engineer and Business Administrator.",
                         className="text-muted",
                     ),
 
@@ -1035,7 +1045,7 @@ aboutus = html.Div([
                 ),
 
             ],
-                className="opacity_1"
+                className="opacity_1",
             ),
 
 
@@ -1073,7 +1083,7 @@ aboutus = html.Div([
 
                  ], className="block clearfix m-b"),
                  html.P(
-                     "Computer System Engineering student.",
+                     "Computer System Engineering Student.",
                      className="text-muted",
                  ),
 
@@ -1115,7 +1125,7 @@ aboutus = html.Div([
 
                  ], className="block clearfix m-b"),
                  html.P(
-                     "Economista, especialista en estadística, Fraud prevention lead en PayU",
+                     "Economist,  Statistician Especialist, Fraud Prevention Lead in PayU",
                      className="text-muted",
                  ),
 
