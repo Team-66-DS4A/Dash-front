@@ -155,7 +155,7 @@ def update_output(slider, switches):
     if "IFR" in switches:
         renal = 1
 
-    probability = 1 / (1 + (math.e ** (-(-2.0283 + (0.0804*slider) + (0.6025*diabetes) + (0.8621*cancer) + (1.4573*obesity) + (1.3140*renal) + (1.3140*heart_disasse)))))
+    probability = 1 / (1 + (math.e ** (-(-2.0283 + (0.0804*(slider-70)) + (0.6025*diabetes) + (0.8621*cancer) + (1.4573*obesity) + (1.3140*renal) + (1.3140*heart_disasse)))))
     probability = round(probability * 100) 
 
     return probability, f"{probability } %" if probability  >= 5 else ""
