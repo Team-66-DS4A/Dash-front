@@ -841,14 +841,6 @@ risk = html.Div([
 
         ]),
 
-
-
-
-
-
-
-
-
     ]),
 
     # Tooltips
@@ -956,7 +948,7 @@ aboutus = html.Div([
 
                      ], className="block clearfix m-b"),
                      html.P(
-                         "Economist, Campaign's structure Analyst, Seguros Bolívar.",
+                         "Economist, Campaign's Structure Analyst, Seguros Bolívar.",
                          className="text-muted",
                      ),
 
@@ -996,7 +988,7 @@ aboutus = html.Div([
 
                     ], className="block clearfix m-b"),
                     html.P(
-                        "Systems engineering student.  Emphasis on information and management systems",
+                        "Systems Engineering Student. Emphasis on Information and Management Systems",
                         className="text-muted",
                     ),
 
@@ -1036,7 +1028,7 @@ aboutus = html.Div([
 
                     ], className="block clearfix m-b"),
                     html.P(
-                        "M in Business Student, Electronic engineer and Business Administrator.",
+                        "MSc in Business Student, Electronic Engineer and Business Administrator.",
                         className="text-muted",
                     ),
 
